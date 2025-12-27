@@ -1,42 +1,105 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins','Sans-Serif';
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/*Colors variables*/
+:root{
+  /*Neutral colors*/
+  --neutral-900: #2E1401;
+  --neutral-600: #6D5B4D;
+  --neutral-100: #F7F3F0;
+  --neutral-0: #FFFFFF;
+
+  /*Accent colors*/
+  --yellow-500: #F8CB46;
+  --blue-400: #92ADEB;
+  --blue-600: #5072C7;
+  --teal-400: #47D9C9;
+  --pink-400: #FC8AE5;
+  --pink-500: #F073A3;
+  --pink-700: #E11966;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/*Texts presets*/
+.text-preset-1{
+  font-size: 40px;
+  line-height: 120%;
+  font-weight: 700;
+  letter-spacing: 0px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.text-preset-1-tablet{
+  font-size: 32px;
+  line-height: 120%;
+  font-weight: 700;
+  letter-spacing: 0px;
 }
 
-.card {
-  padding: 2em;
+.text-preset-1-mobile{
+  font-size: 24px;
+  line-height: 120%;
+  font-weight: 700;
+  letter-spacing: 0px;
 }
 
-.read-the-docs {
-  color: #888;
+.text-preset-2{
+  font-size: 24px;
+  line-height: 120%;
+  font-weight: 700;
+  letter-spacing: 0px;
+}
+
+.text-preset-3{
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0px;
+  line-height: 120%;
+}
+
+.text-preset-4-semibold{
+  font-size: 16px;
+  line-height: 120%;
+  font-weight: 600;
+  letter-spacing: 0px;
+}
+
+.text-preset-4-medium{
+  font-size: 16px;
+  line-height: 120%;
+  font-weight: 500;
+  letter-spacing: 0px;
+}
+
+.text-preset-4-regular{
+  font-size: 16px;
+  line-height: 140%;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+.text-preset-5{
+  font-size: 14px;
+  line-height: 140%;
+  font-weight: 500;
+  letter-spacing: 0px;
+}
+
+.text-preset-5-regular{  
+  font-size: 14px;
+  line-height: 140%;
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+
+.text-preset-6{
+  font-size: 12px;
+  line-height: 130%;
+  letter-spacing: -3px;
+  font-weight: 500;
 }
