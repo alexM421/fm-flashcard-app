@@ -1,17 +1,10 @@
 import styles from "./StudyStatistics.module.css"
-import data from "../../../data.json"
 import StudyStatCard from "./StudyStatCard"
-
-type Flashcard = {
-    id: string;
-    question: string;
-    answer: string;
-    category: string;
-    knownCount: number;
-}
+import { useDataContext, type Flashcard } from "../../../contexts/DataContext"
 
 export default function StudyStatistics () {
-    const flashcards: Flashcard[] = data.flashcards
+
+    const { flashcards } = useDataContext()
 
     // Calculate statistics
     const total = flashcards.length
