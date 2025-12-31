@@ -11,13 +11,13 @@ export default function FlashcardContainer () {
         flashcardsNumber, 
         count, 
         currentFlashcard, 
-        isMastered,
+        isCurrentFlashcardMastered,
         categoriesObjArr, 
         selectedCategories, 
         hideMastered, 
         incrementCount, decrementCount,
         resetProgress, 
-        shuffleFlashcards, 
+        shuffleFlashcardsIds, 
         increaseKnownCount, 
         setSelectedCategories, 
         setHideMastered 
@@ -38,7 +38,7 @@ export default function FlashcardContainer () {
                 <Button 
                     imgSrcName="icon-shuffle.svg" 
                     text="shuffle" 
-                    onClick={shuffleFlashcards}
+                    onClick={shuffleFlashcardsIds}
                 />
             </div>
             <div className={styles["flashcard-container-main"]}>
@@ -46,10 +46,10 @@ export default function FlashcardContainer () {
                 <div>
                     <Button 
                         imgSrcName="icon-circle-check.svg"
-                        text={isMastered ? "Already Mastered" : "I Know This"}
+                        text={isCurrentFlashcardMastered ? "Already Mastered" : "I Know This"}
                         variants="shadow" 
                         onClick={increaseKnownCount} 
-                        disabled={isMastered}
+                        disabled={isCurrentFlashcardMastered}
                     />
                     <Button imgSrcName="icon-reset.svg" text="Reset Progress" variants="shadow" onClick={resetProgress}/>
                 </div>

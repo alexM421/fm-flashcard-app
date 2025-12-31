@@ -11,7 +11,9 @@ export type Flashcard = {
 
 type DataContextType = {
     flashcards: Flashcard[];
+    shuffledFlashcardsIds: string[];
     setFlashcards: React.Dispatch<React.SetStateAction<Flashcard[]>>;
+    setShuffledFlashcardsIds: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export const DataContext = createContext<DataContextType | undefined>(undefined)

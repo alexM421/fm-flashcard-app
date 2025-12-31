@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useState } from "react"
 import { useDataContext } from "../../../contexts/DataContext"
 import type { Flashcard as FlashcardType } from "../../../contexts/DataContext"
 import type { CategoryObj } from "../../../shared/CategorySelect/CategorySelect"
@@ -8,11 +8,10 @@ export type SelectedCategoriesType = { [key: string]: boolean }
 
 export default function useFlashcardContainerData() {
     
-    const { flashcards, setFlashcards } = useDataContext()
-    const [shuffledFlashcards, setShuffledFlashcards] = useState<FlashcardType[]>([])
+    const { flashcards, shuffledFlashcardsIds, setShuffledFlashcardsIds, setFlashcards } = useDataContext()
     const [count, setCount] = useState(0)
     const [hideMastered, setHideMastered] = useState(false)
-    
+
     // Gets the categories object array
     function getCategoriesObjArr () {
         const categoriesObjArr: CategoryObj[] = []
@@ -38,13 +37,13 @@ export default function useFlashcardContainerData() {
     })
     
     
-    const currentFlashcard = shuffledFlashcards[count]
-    const flashcardsNumber =  shuffledFlashcards.length
-    const isCurrentFlashcardMastered = currentFlashcard?.knownCount >= 5
+    const currentFlashcard = flashcards.find(flashcard => flashcard.id === shuffledFlashcardsIds[count]) 
+    const flashcardsNumber =  shuffledFlashcardsIds.length
+    const isCurrentFlashcardMastered = (currentFlashcard?.knownCount || 0) >= 5 
     const currentFlashcardId = currentFlashcard?.id
     
     
-    const shuffleFlashcards = useCallback(() => {
+    const shuffleFlashcardsIds = useCallback(() => {
         
         const noCategoriesSelected = Object.values(selectedCategories).every(value => !value)
         
@@ -69,15 +68,9 @@ export default function useFlashcardContainerData() {
             filteredFlashcards.splice(randomIndex, 1)
         }
         
-        setShuffledFlashcards(shuffledFlashcardsArr)
-    }, [flashcards, hideMastered, selectedCategories])
-
-    // useEffect(() => {
-    //     const intializeShuffledFlashcards = async () => {
-    //         shuffleFlashcards()
-    //     }
-    //     intializeShuffledFlashcards()
-    // }, [shuffleFlashcards])
+        setShuffledFlashcardsIds(shuffledFlashcardsArr.map(flashcard => flashcard.id))
+    }, [flashcards, hideMastered, selectedCategories, setShuffledFlashcardsIds])
+    
     
     const increaseKnownCount = () => setFlashcards((prevFlashcards: FlashcardType[]) => {
         return prevFlashcards.map((flashcard) => flashcard.id === currentFlashcardId ? { ...flashcard, knownCount: flashcard.knownCount + 1 } : flashcard)
@@ -98,11 +91,11 @@ export default function useFlashcardContainerData() {
         selectedCategories,
         hideMastered,
         isCurrentFlashcardMastered,
+        shuffleFlashcardsIds,
         setSelectedCategories,
         setHideMastered,
         incrementCount,
         decrementCount,
-        shuffleFlashcards,
         increaseKnownCount,
         resetProgress
     }

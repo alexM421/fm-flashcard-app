@@ -4,7 +4,7 @@ import styles from './FlashcardContainer.module.css'
 import { useState } from 'react'
 
 type FlashcardProps = {
-    flashcard: Flashcard
+    flashcard: Flashcard | undefined
 }
 
 export default function Flashcard ({ flashcard }: FlashcardProps) {
