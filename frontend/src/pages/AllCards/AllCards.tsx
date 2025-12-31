@@ -2,6 +2,7 @@ import styles from "./AllCards.module.css"
 import AllCardsForm from "./AllCardsForm/AllCardsForm"
 import ShuffleNavBar from "../../components/ShuffleNavBar/ShuffleNavBar"
 import useFlashcardLogicData from "../../hooks/useFlashcardLogicData"
+import AllCardsList from "./AllCardsList/AllCardsList"
 
 export default function AllCards () {
 
@@ -14,6 +15,7 @@ export default function AllCards () {
                 flashcards={flashcards}
                 shuffleFlashcards={shuffleFlashcards}
             />
+            <AllCardsList flashcards={flashcards} />
         </div>
     )
 }

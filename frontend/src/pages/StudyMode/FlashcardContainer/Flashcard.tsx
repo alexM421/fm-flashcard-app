@@ -1,10 +1,10 @@
-import type { Flashcard } from '../../../contexts/DataContext'
+import type { Flashcard as FlashcardType } from '../../../types/types'
 import KnowledgeCount from '../../../shared/KnwoledgeCount/KnowledgeCount'
 import styles from './FlashcardContainer.module.css'
 import { useState } from 'react'
 
 type FlashcardProps = {
-    flashcard: Flashcard | undefined
+    flashcard: FlashcardType | undefined
 }
 
 export default function Flashcard ({ flashcard }: FlashcardProps) {
