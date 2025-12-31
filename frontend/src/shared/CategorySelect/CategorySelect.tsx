@@ -3,7 +3,7 @@ import Button from "../Button/Button"
 import CheckboxInput from "../CheckboxInput/CheckboxInput"
 import { useRef, useState, useEffect } from "react"
 import { slugify } from "../../utils/slugify"
-import type { SelectedCategoriesType } from "../../pages/StudyMode/FlashcardContainer/useFlashcardContainerData"
+import type { SelectedCategoryType } from "../../components/ShuffleNavBar/ShuffleNavBar"
 
 export type CategoryObj = {
     category: string,
@@ -12,8 +12,8 @@ export type CategoryObj = {
 
 type CategorySelectProps = {
     categoryObjArr: CategoryObj[]
-    selectedCategories: SelectedCategoriesType
-    setSelectedCategories: React.Dispatch<React.SetStateAction<SelectedCategoriesType>>
+    selectedCategories: SelectedCategoryType
+    setSelectedCategories: React.Dispatch<React.SetStateAction<SelectedCategoryType>>
 }
 
 export default function CategorySelect ({ categoryObjArr, selectedCategories, setSelectedCategories }: CategorySelectProps) {
@@ -58,7 +58,7 @@ export default function CategorySelect ({ categoryObjArr, selectedCategories, se
                 {categoryObjArr.map(categoryObj => {
 
                     const { category, occurences } = categoryObj
-                    const sluggedCategory = slugify(category)
+                    const sluggedCategory = slugify(category) 
 
                     return(
                         <label 

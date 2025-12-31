@@ -1,46 +1,29 @@
 import Button from "../../../shared/Button/Button"
-import CheckboxInput from "../../../shared/CheckboxInput/CheckboxInput"
-import CategorySelect from "../../../shared/CategorySelect/CategorySelect"
 import styles from "./FlashcardContainer.module.css"
 import Flashcard from "./Flashcard"
 import useFlashcardContainerData from "./useFlashcardContainerData"
+import ShuffleNavBar from "../../../components/ShuffleNavBar/ShuffleNavBar"
 
 export default function FlashcardContainer () {
 
     const { 
+        flashcards,
         flashcardsNumber, 
         count, 
         currentFlashcard, 
         isCurrentFlashcardMastered,
-        categoriesObjArr, 
-        selectedCategories, 
-        hideMastered, 
         incrementCount, decrementCount,
         resetProgress, 
-        shuffleFlashcardsIds, 
         increaseKnownCount, 
-        setSelectedCategories, 
-        setHideMastered 
+        setShuffledFlashcardsIds 
     } = useFlashcardContainerData()
 
     return(
         <div className={styles["flashcard-container"]}>
-            <div className={styles["flashcard-container-header"]}>
-                <CategorySelect 
-                    categoryObjArr={categoriesObjArr}
-                    selectedCategories={selectedCategories}
-                    setSelectedCategories={setSelectedCategories}
-                />
-                <div className={styles["hide-mastered"]}>
-                    <CheckboxInput id="hide-mastered" onChange={() => setHideMastered(!hideMastered)} value={hideMastered} />
-                    <p className="text-preset-4-medium">Hide Mastered</p>
-                </div>
-                <Button 
-                    imgSrcName="icon-shuffle.svg" 
-                    text="shuffle" 
-                    onClick={shuffleFlashcardsIds}
-                />
-            </div>
+            <ShuffleNavBar 
+                flashcards={flashcards} 
+                setShuffledFlashcardsIds={setShuffledFlashcardsIds} 
+            />
             <div className={styles["flashcard-container-main"]}>
                 <Flashcard flashcard={currentFlashcard}/>
                 <div>
