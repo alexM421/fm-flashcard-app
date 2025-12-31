@@ -1,28 +1,28 @@
 import Button from "../../../shared/Button/Button"
 import styles from "./FlashcardContainer.module.css"
 import Flashcard from "./Flashcard"
-import useFlashcardContainerData from "./useFlashcardContainerData"
+import useFlashcardLogicData from "../../../hooks/useFlashcardLogicData"
 import ShuffleNavBar from "../../../components/ShuffleNavBar/ShuffleNavBar"
 
 export default function FlashcardContainer () {
 
     const { 
         flashcards,
-        flashcardsNumber, 
-        count, 
+        totalFlashcards, 
+        currentIndex, 
         currentFlashcard, 
         isCurrentFlashcardMastered,
         incrementCount, decrementCount,
         resetProgress, 
         increaseKnownCount, 
-        setShuffledFlashcardsIds 
-    } = useFlashcardContainerData()
+        setShuffle 
+    } = useFlashcardLogicData()
 
     return(
         <div className={styles["flashcard-container"]}>
             <ShuffleNavBar 
                 flashcards={flashcards} 
-                setShuffledFlashcardsIds={setShuffledFlashcardsIds} 
+                setShuffle={setShuffle} 
             />
             <div className={styles["flashcard-container-main"]}>
                 <Flashcard flashcard={currentFlashcard}/>
@@ -42,15 +42,15 @@ export default function FlashcardContainer () {
                     imgSrcName="icon-chevron-left.svg" 
                     text="Previous" 
                     onClick={decrementCount}
-                    disabled={count === 0}
+                    disabled={currentIndex === 0}
                 />
-                <p className="text-preset-5">{`Card ${count+1} of ${flashcardsNumber}`}</p>
+                <p className="text-preset-5">{`Card ${currentIndex+1} of ${totalFlashcards}`}</p>
                 <Button 
                     imgSrcName="icon-chevron-right.svg" 
                     text="Next" 
                     variants="reverse"
                     onClick={incrementCount}
-                    disabled={count === flashcardsNumber - 1}
+                    disabled={currentIndex === totalFlashcards - 1}
                 />
             </div>
         </div>

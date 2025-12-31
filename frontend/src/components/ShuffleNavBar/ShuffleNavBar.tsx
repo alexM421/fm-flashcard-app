@@ -10,10 +10,10 @@ import type { SelectedCategoryType } from "../../types/types"
 
 export type ShuffleNavBarProps = {
     flashcards: FlashcardType[]
-    setShuffledFlashcardsIds: React.Dispatch<React.SetStateAction<string[]>>
+    shuffleFlashcards: (flashcardsIds: string[]) => void
 }
 
-export default function ShuffleNavBar ({ flashcards, setShuffledFlashcardsIds }: ShuffleNavBarProps) {
+export default function ShuffleNavBar ({ flashcards, shuffleFlashcards }: ShuffleNavBarProps) {
 
     const [hideMastered, setHideMastered] = useState(false)
 
@@ -66,8 +66,8 @@ export default function ShuffleNavBar ({ flashcards, setShuffledFlashcardsIds }:
             filteredFlashcards.splice(randomIndex, 1)
         }
         
-        setShuffledFlashcardsIds(shuffledFlashcardsArr.map(flashcard => flashcard.id))
-    }, [flashcards, hideMastered, selectedCategories, setShuffledFlashcardsIds])
+        shuffleFlashcards(shuffledFlashcardsArr.map(flashcard => flashcard.id))
+    }, [flashcards, hideMastered, selectedCategories, shuffleFlashcards])
     
 
 

@@ -1,0 +1,49 @@
+import { useMemo, useState } from "react"
+import { useDataContext } from "../contexts/DataContext"
+import type { Flashcard as FlashcardType } from "../types/types"
+
+export default function useFlashcardLogicData() {
+    
+    const { flashcards, shuffledFlashcardsIds, setShuffledFlashcardsIds, setFlashcards } = useDataContext()
+    const [currentIndex, setCurrentIndex] = useState(0)
+    
+    const currentFlashcard = useMemo(
+        () => flashcards.find(flashcard => flashcard.id === shuffledFlashcardsIds[currentIndex]),
+        [flashcards, shuffledFlashcardsIds, currentIndex]
+    )
+
+    const flashcardsNumber =  shuffledFlashcardsIds.length
+    const isCurrentFlashcardMastered = (currentFlashcard?.knownCount || 0) >= 5 
+   
+    
+    const increaseKnownCount = () => setFlashcards((prevFlashcards: FlashcardType[]) => currentFlashcard 
+         ? prevFlashcards.map((flashcard) => flashcard.id === currentFlashcard.id ? { ...flashcard, knownCount: flashcard.knownCount + 1 } : flashcard)
+         : prevFlashcards
+    )
+    
+    const resetProgress = () => setFlashcards((prevFlashcards: FlashcardType[]) => currentFlashcard 
+        ? prevFlashcards.map((flashcard) => flashcard.id === currentFlashcard.id ? { ...flashcard, knownCount: 0 } : flashcard)
+        : prevFlashcards
+    )
+
+    const incrementCount = () => setCurrentIndex(prev => Math.min(prev + 1, shuffledFlashcardsIds.length - 1))
+    const decrementCount = () => setCurrentIndex(prev => Math.max(prev - 1, 0))
+
+    const setShuffle = (flashcardsIds: string[]) => {
+        setShuffledFlashcardsIds(flashcardsIds)
+        setCurrentIndex(0)
+    }
+
+    return {
+        flashcardsNumber,
+        currentIndex,
+        currentFlashcard,
+        flashcards,
+        isCurrentFlashcardMastered,
+        incrementCount,
+        decrementCount,
+        increaseKnownCount,
+        resetProgress,
+        setShuffle
+    }
+}
