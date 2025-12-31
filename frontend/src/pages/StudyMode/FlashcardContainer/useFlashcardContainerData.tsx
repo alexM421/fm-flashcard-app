@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useDataContext } from "../../../contexts/DataContext"
-import type { Flashcard as FlashcardType } from "../../../contexts/DataContext"
+import type { Flashcard as FlashcardType } from "../../../types/types"
 
 export default function useFlashcardContainerData() {
     

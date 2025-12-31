@@ -2,17 +2,16 @@ import styles from "./ShuffleNavBar.module.css"
 import CategorySelect from "../../shared/CategorySelect/CategorySelect"
 import CheckboxInput from "../../shared/CheckboxInput/CheckboxInput"
 import Button from "../../shared/Button/Button"
-import type { CategoryObj } from "../../shared/CategorySelect/CategorySelect"
+import type { CategoryObj } from "../../types/types"
 import { useCallback, useState } from "react"
-import type { Flashcard as FlashcardType } from "../../contexts/DataContext"
+import type { Flashcard as FlashcardType } from "../../types/types"
 import { slugify } from "../../utils/slugify"
+import type { SelectedCategoryType } from "../../types/types"
 
-type ShuffleNavBarProps = {
+export type ShuffleNavBarProps = {
     flashcards: FlashcardType[]
     setShuffledFlashcardsIds: React.Dispatch<React.SetStateAction<string[]>>
 }
-
-export type SelectedCategoryType = {[key: string]: boolean}
 
 export default function ShuffleNavBar ({ flashcards, setShuffledFlashcardsIds }: ShuffleNavBarProps) {
 

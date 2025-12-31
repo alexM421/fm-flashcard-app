@@ -1,13 +1,6 @@
 import { useContext } from "react"
 import { createContext } from "react";
-
-export type Flashcard = {
-    id: string;
-    question: string;
-    answer: string;
-    category: string;
-    knownCount: number;
-}
+import type { Flashcard } from "../types/types";
 
 type DataContextType = {
     flashcards: Flashcard[];

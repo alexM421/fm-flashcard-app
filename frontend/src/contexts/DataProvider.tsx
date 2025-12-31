@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import type { Flashcard } from "./DataContext"
+import type { Flashcard } from "../types/types"
 import { DataContext } from "./DataContext"
 import Data from "../data.json"
 
