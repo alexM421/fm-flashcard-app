@@ -1,10 +1,18 @@
 import { useEffect } from "react"
 
-export default function useHandleClickOutside(modalRef: React.RefObject<HTMLDivElement | null>, buttonRef: React.RefObject<HTMLButtonElement | null>, setModalVisible: React.Dispatch<React.SetStateAction<boolean>>) {
+export default function useHandleClickOutside(
+        modalRef: React.RefObject<Element | null>, 
+        setModalVisible: React.Dispatch<React.SetStateAction<boolean>>,
+        buttonRef?: React.RefObject<HTMLButtonElement | null>, 
+    ) {
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (
+
+
+            if(!buttonRef){
+                if(modalRef.current && !modalRef.current.contains(event.target as Node)) setModalVisible(false)
+            }else if(
                 modalRef.current && 
                 buttonRef.current &&
                 !modalRef.current.contains(event.target as Node) &&

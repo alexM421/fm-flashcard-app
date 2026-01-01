@@ -25,7 +25,7 @@ export default function CategorySelect ({ categoryObjArr, selectedCategories, se
     const selectionRef = useRef<HTMLDivElement>(null)
     const btnRef = useRef<HTMLButtonElement>(null)
 
-    useHandleClickOutside(selectionRef, btnRef, setIsVisible)
+    useHandleClickOutside(selectionRef, setIsVisible, btnRef)
 
     return(
         <div className={styles["category-select"]}>
