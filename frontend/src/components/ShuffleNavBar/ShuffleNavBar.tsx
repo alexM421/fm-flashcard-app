@@ -11,11 +11,13 @@ import type { SelectedCategoryType } from "../../types/types"
 export type ShuffleNavBarProps = {
     flashcards: FlashcardType[]
     shuffleFlashcards: (flashcardsIds: string[]) => void
+    hideMastered: boolean
+    setHideMastered: (hideMastered: boolean) => void
+    noPadding?: boolean
 }
 
-export default function ShuffleNavBar ({ flashcards, shuffleFlashcards }: ShuffleNavBarProps) {
+export default function ShuffleNavBar ({ flashcards, shuffleFlashcards, noPadding = false, hideMastered, setHideMastered }: ShuffleNavBarProps) {
 
-    const [hideMastered, setHideMastered] = useState(false)
 
     // Gets the categories object array
     function getCategoriesObjArr () {
@@ -72,7 +74,7 @@ export default function ShuffleNavBar ({ flashcards, shuffleFlashcards }: Shuffl
 
 
     return(
-        <div className={styles["shuffle-nav-bar"]}>
+        <div className={`${styles["shuffle-nav-bar"]} ${noPadding ? styles["no-padding"] : ""}`}>
             <CategorySelect 
                 categoryObjArr={categoriesObjArr}
                 selectedCategories={selectedCategories}

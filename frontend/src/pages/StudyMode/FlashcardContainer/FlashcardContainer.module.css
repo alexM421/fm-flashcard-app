@@ -34,6 +34,29 @@
         align-items: center;
         padding: 20px;
     }
+
+    &>.flashcard-container-empty{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+        justify-content: center;
+
+        &>p{
+            color: var(--neutral-600);
+        }
+
+        &>h1{
+            color: var(--neutral-900);
+        }
+
+        &>button{
+            width: fit-content;
+            align-self: center;
+            margin-top: 20px;
+        }
+    }
 }
 
 .flashcard{

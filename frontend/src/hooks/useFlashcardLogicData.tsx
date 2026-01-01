@@ -6,7 +6,8 @@ export default function useFlashcardLogicData() {
     
     const { flashcards, shuffledFlashcardsIds, setShuffledFlashcardsIds, setFlashcards } = useDataContext()
     const [currentIndex, setCurrentIndex] = useState(0)
-    
+    const [hideMastered, setHideMastered] = useState(false)
+
     const currentFlashcard = useMemo(
         () => flashcards.find(flashcard => flashcard.id === shuffledFlashcardsIds[currentIndex]),
         [flashcards, shuffledFlashcardsIds, currentIndex]
@@ -38,9 +39,11 @@ export default function useFlashcardLogicData() {
         totalFlashcards,
         currentIndex,
         currentFlashcard,
+        hideMastered,
         flashcards,
         isCurrentFlashcardMastered,
         shuffledFlashcardsIds,
+        setHideMastered,
         incrementCount,
         decrementCount,
         increaseKnownCount,

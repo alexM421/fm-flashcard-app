@@ -3,26 +3,71 @@ import styles from "./FlashcardContainer.module.css"
 import Flashcard from "./Flashcard"
 import useFlashcardLogicData from "../../../hooks/useFlashcardLogicData"
 import ShuffleNavBar from "../../../components/ShuffleNavBar/ShuffleNavBar"
+import { useNavigate } from "react-router-dom"
 
 export default function FlashcardContainer () {
 
+    const navigate = useNavigate()
+  
     const { 
         flashcards,
         totalFlashcards, 
         currentIndex, 
         currentFlashcard, 
         isCurrentFlashcardMastered,
+        hideMastered,
         incrementCount, decrementCount,
         resetProgress, 
         increaseKnownCount, 
-        shuffleFlashcards 
+        shuffleFlashcards,
+        setHideMastered
     } = useFlashcardLogicData()
 
+    /*If there are no cards to study*/
+    if(flashcards.length === 0) {
+        return(
+            <div className={styles["flashcard-container"]}>
+                <ShuffleNavBar 
+                    flashcards={flashcards} 
+                    shuffleFlashcards={shuffleFlashcards} 
+                    hideMastered={hideMastered}
+                    setHideMastered={setHideMastered}
+                />
+                <div className={styles["flashcard-container-empty"]}>
+                    <h1 className="text-preset-2">No cards to study</h1>
+                    <p className="text-preset-4-regular">You don’t have any cards yet. Add your first card in the All Cards tab.</p>
+                    <Button text="Go to All Cards" onClick={() => navigate("/all-cards")}  variants="shadow"/>
+                </div>
+            </div>
+        )
+    }
+
+    /*If all cards are mastered*/
+    if(flashcards.length === flashcards.filter(flashcard => flashcard.knownCount >= 5).length && hideMastered) {
+        return(
+            <div className={styles["flashcard-container"]}>
+                <ShuffleNavBar 
+                    flashcards={flashcards} 
+                    shuffleFlashcards={shuffleFlashcards} 
+                    hideMastered={hideMastered}
+                    setHideMastered={setHideMastered}
+                />
+                <div className={styles["flashcard-container-empty"]}>
+                    <h1 className="text-preset-2">You're all caught up!</h1>
+                    <p className="text-preset-4-regular">All your cards are mastered. Turn off “Hide mastered” to see them again.</p>
+                </div>
+            </div>
+        )
+    }
+
+    /*If there are cards to study*/
     return(
         <div className={styles["flashcard-container"]}>
             <ShuffleNavBar 
                 flashcards={flashcards} 
                 shuffleFlashcards={shuffleFlashcards} 
+                hideMastered={hideMastered}
+                setHideMastered={setHideMastered}
             />
             <div className={styles["flashcard-container-main"]}>
                 <Flashcard flashcard={currentFlashcard}/>

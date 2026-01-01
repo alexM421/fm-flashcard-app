@@ -13,4 +13,8 @@
     &>button:last-of-type{
         margin-left: auto;
     }
+
+    &.no-padding{
+        padding: 0;
+    }
 }
