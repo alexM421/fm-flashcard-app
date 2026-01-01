@@ -3,6 +3,7 @@ import { createPortal } from "react-dom"
 import styles from "./MenuModal.module.css"
 import useHandleClickOutside from "../../hooks/useHandleClickOutside"
 import EditModal from "../EditModal/EditModal"
+import DeleteModal from "../DeleteModal/DeleteModal"
 import BackgroundModal from "../BackgroundModal/BackgroundModal"
 
 export default function MenuModal({ showMenuModal, setShowMenuModal, buttonRef }: { 
@@ -12,7 +13,7 @@ export default function MenuModal({ showMenuModal, setShowMenuModal, buttonRef }
 }) {
 
     const [showEditModal, setShowEditModal] = useState(false)
-    // const [showDeleteModal, setShowDeleteModal] = useState(false)
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
 
     const menuModalRef = useRef<HTMLDivElement>(null)
 
@@ -28,7 +29,7 @@ export default function MenuModal({ showMenuModal, setShowMenuModal, buttonRef }
                     <p className="text-preset-5">Edit</p>
                 </button>
                 <hr />  
-                <button className={styles["menu-modal-delete-button"]}>
+                <button className={styles["menu-modal-delete-button"]} onClick={() => setShowDeleteModal(true)}>
                     <img src="/assets/images/icon-delete.svg" alt="delete" />
                     <p className="text-preset-5">Delete</p>
                 </button>
@@ -37,6 +38,12 @@ export default function MenuModal({ showMenuModal, setShowMenuModal, buttonRef }
                 <>
                     <BackgroundModal /> 
                     <EditModal setShowEditModal={setShowEditModal} />
+                </>,
+            document.getElementById("root")!)}
+            {createPortal(showDeleteModal && 
+                <>
+                    <BackgroundModal /> 
+                    <DeleteModal setShowDeleteModal={setShowDeleteModal} />
                 </>,
             document.getElementById("root")!)}
         </>
