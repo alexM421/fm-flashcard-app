@@ -1,9 +1,10 @@
 import styles from "./CategorySelect.module.css"
 import Button from "../Button/Button"
 import CheckboxInput from "../CheckboxInput/CheckboxInput"
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState } from "react"
 import { slugify } from "../../utils/slugify"
 import type { SelectedCategoryType } from "../../types/types"
+import useHandleClickOutside from "../../hooks/useHandleClickOutside"
 
 export type CategoryObj = {
     category: string,
@@ -24,26 +25,7 @@ export default function CategorySelect ({ categoryObjArr, selectedCategories, se
     const selectionRef = useRef<HTMLDivElement>(null)
     const btnRef = useRef<HTMLButtonElement>(null)
 
-    useEffect(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            if (
-                selectionRef.current && 
-                btnRef.current &&
-                !selectionRef.current.contains(event.target as Node) &&
-                !btnRef.current.contains(event.target as Node)
-            ) {
-                setIsVisible(false)
-            }
-        }
-    
-        if (isVisible) {
-            document.addEventListener('mousedown', handleClickOutside)
-        }
-    
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside)
-        }
-    }, [isVisible])
+    useHandleClickOutside(selectionRef, btnRef, setIsVisible)
 
     return(
         <div className={styles["category-select"]}>

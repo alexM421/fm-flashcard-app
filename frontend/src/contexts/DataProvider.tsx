@@ -16,7 +16,6 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
         setData()
     },[])
 
-
     const value = {
         flashcards: flashcards,
         shuffledFlashcardsIds: shuffledFlashcardsIds,

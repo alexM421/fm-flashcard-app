@@ -1,12 +1,16 @@
 import styles from "./AllCardsList.module.css"
 import type { Flashcard } from "../../../types/types"
 import KnowledgeCount from "../../../shared/KnwoledgeCount/KnowledgeCount"
-
+import { useState, useRef } from "react"
+import MenuModal from "../../../modals/MenuModal/MenuModal"
 
 export default function FlashcardCard ({ flashcard }: { flashcard: Flashcard }) {
     
     const { question, answer, category, knownCount } = flashcard
-    
+
+    const [showMenuModal, setShowMenuModal] = useState(false)
+    const menuButtonRef = useRef<HTMLButtonElement>(null)
+
     return(
         <div className={styles["flashcard-card"]}>
             <h1 className="text-preset-3">{question}</h1>
@@ -27,10 +31,15 @@ export default function FlashcardCard ({ flashcard }: { flashcard: Flashcard }) 
                     :<KnowledgeCount knownCount={knownCount} />
                     }
                 </div>
-                <button>
-                    <img src={"/assets/images/icon-menu.svg"} alt="icon-menu" />
-                </button>
-            </div>
+                <div className={styles["flashcard-card-menu"]}>
+                    <div className={styles["flashcard-card-menu-button"]}>
+                        <button aria-label="Open menu for this flashcard" onClick={() => setShowMenuModal(!showMenuModal)} ref={menuButtonRef}>
+                            <img src={"/assets/images/icon-menu.svg"} alt="icon-menu" />
+                        </button>
+                        <MenuModal showMenuModal={showMenuModal} setShowMenuModal={setShowMenuModal} buttonRef={menuButtonRef} />
+                    </div>
+                </div>
+            </div> 
         </div>
     )
 }
