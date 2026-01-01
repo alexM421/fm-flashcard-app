@@ -12,7 +12,7 @@ export default function useFlashcardLogicData() {
         [flashcards, shuffledFlashcardsIds, currentIndex]
     )
 
-    const flashcardsNumber =  shuffledFlashcardsIds.length
+    const totalFlashcards =  shuffledFlashcardsIds.length
     const isCurrentFlashcardMastered = (currentFlashcard?.knownCount || 0) >= 5 
    
     
@@ -29,21 +29,22 @@ export default function useFlashcardLogicData() {
     const incrementCount = () => setCurrentIndex(prev => Math.min(prev + 1, shuffledFlashcardsIds.length - 1))
     const decrementCount = () => setCurrentIndex(prev => Math.max(prev - 1, 0))
 
-    const setShuffle = (flashcardsIds: string[]) => {
+    const shuffleFlashcards = (flashcardsIds: string[]) => {
         setShuffledFlashcardsIds(flashcardsIds)
         setCurrentIndex(0)
     }
 
     return {
-        flashcardsNumber,
+        totalFlashcards,
         currentIndex,
         currentFlashcard,
         flashcards,
         isCurrentFlashcardMastered,
+        shuffledFlashcardsIds,
         incrementCount,
         decrementCount,
         increaseKnownCount,
         resetProgress,
-        setShuffle
+        shuffleFlashcards
     }
 }

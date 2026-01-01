@@ -6,7 +6,7 @@ import AllCardsList from "./AllCardsList/AllCardsList"
 
 export default function AllCards () {
 
-    const { flashcards, shuffleFlashcards } = useFlashcardLogicData()
+    const { flashcards, shuffleFlashcards, shuffledFlashcardsIds } = useFlashcardLogicData()
 
     return(
         <div className={styles["all-cards"]}>
@@ -15,7 +15,7 @@ export default function AllCards () {
                 flashcards={flashcards}
                 shuffleFlashcards={shuffleFlashcards}
             />
-            <AllCardsList flashcards={flashcards} />
+            <AllCardsList flashcards={flashcards} shuffledFlashcardsIds={shuffledFlashcardsIds} />
         </div>
     )
 }

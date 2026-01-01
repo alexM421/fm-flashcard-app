@@ -15,14 +15,14 @@ export default function FlashcardContainer () {
         incrementCount, decrementCount,
         resetProgress, 
         increaseKnownCount, 
-        setShuffle 
+        shuffleFlashcards 
     } = useFlashcardLogicData()
 
     return(
         <div className={styles["flashcard-container"]}>
             <ShuffleNavBar 
                 flashcards={flashcards} 
-                setShuffle={setShuffle} 
+                shuffleFlashcards={shuffleFlashcards} 
             />
             <div className={styles["flashcard-container-main"]}>
                 <Flashcard flashcard={currentFlashcard}/>

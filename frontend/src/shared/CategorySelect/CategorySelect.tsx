@@ -3,7 +3,7 @@ import Button from "../Button/Button"
 import CheckboxInput from "../CheckboxInput/CheckboxInput"
 import { useRef, useState, useEffect } from "react"
 import { slugify } from "../../utils/slugify"
-import type { SelectedCategoryType } from "../../components/ShuffleNavBar/ShuffleNavBar"
+import type { SelectedCategoryType } from "../../types/types"
 
 export type CategoryObj = {
     category: string,
@@ -68,7 +68,7 @@ export default function CategorySelect ({ categoryObjArr, selectedCategories, se
                             <CheckboxInput 
                                 id={`${sluggedCategory}-id`}
                                 onChange={() => {
-                                    setSelectedCategories((prevSelectedCategories) => ({
+                                    setSelectedCategories((prevSelectedCategories: SelectedCategoryType) => ({
                                         ...prevSelectedCategories,
                                         [sluggedCategory]: !prevSelectedCategories[sluggedCategory]
                                     }))
