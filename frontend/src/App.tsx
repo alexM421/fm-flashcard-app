@@ -1,11 +1,14 @@
 import "./App.css";
+import { Outlet } from "react-router-dom";
+import Navbar from "./layouts/Navbar/Navbar";
 
 function App() {
 
   return (
-    <>
-      <h1 className="text-preset-1">Flashcard App</h1>
-    </>
+    <div id="app">
+      <Navbar/>
+      <Outlet/>
+    </div>
   );
 }
 

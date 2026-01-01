@@ -1,0 +1,202 @@
+.flashcard-container{
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--neutral-900);
+    box-shadow: 1px 1px 0px var(--neutral-900);
+    border-radius: 16px;
+    background-color: var(--neutral-0);
+
+    &>.flashcard-container-main{
+        flex: 1;
+        display: flex;
+        border-top: 1px solid var(--neutral-900);
+        border-bottom: 1px solid var(--neutral-900);
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+        
+        &>div{
+            display: flex;
+            align-items: center;
+            align-self: center;
+            gap: 20px;
+
+            &>button:first-of-type{
+                background-color: var(--yellow-500);
+            }
+        }
+    }
+
+    &>.flashcard-container-footer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+    }
+
+    &>.flashcard-container-empty{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+        justify-content: center;
+
+        &>p{
+            color: var(--neutral-600);
+        }
+
+        &>h1{
+            color: var(--neutral-900);
+        }
+
+        &>button{
+            width: fit-content;
+            align-self: center;
+            margin-top: 20px;
+        }
+    }
+}
+
+.flashcard{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 360px;
+    background-image: url('/assets/images/pattern-flashcard-bg.svg');
+    padding: 24px;
+    background-color: var(--pink-400);
+    border: 2px solid var(--neutral-900);
+    box-shadow: 2px 2px 0px var(--neutral-900);
+    border-radius: 16px;
+    transition: background-color 0.2s ease;
+
+    &>.flashcard-star-top{
+        position: absolute;
+        top: 40px;    
+        right: 40px;
+    }
+    &>.flashcard-star-bottom{
+        position: absolute;
+        bottom: 52px;
+        left: 40px;
+        transition: transform 0.1s ease-out;
+    }
+
+    &>p{
+        padding: 6px 12px;
+        border-radius: 999px;
+        width: fit-content; /* or just remove width property */
+        white-space: nowrap;
+        flex-shrink: 0;
+        color: var(--neutral-900);
+        background-color: var(--neutral-0);
+        border: 1px solid var(--neutral-900);
+        box-shadow: 1px 1px 0px var(--neutral-900);
+    }
+
+    &>.flashcard-main{
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+
+        &>h1, &>button{
+            color: var(--neutral-900);
+            /* transition: transform 0.15s ease-out; */
+            animation: hideFlashcardTitle 0.15s ease-out forwards;
+            text-align: center;
+        }
+
+        &>button{
+            background-color: transparent;
+            border: none;
+            animation: hideFlashcardButton 0.15s ease-out forwards;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+
+    }
+
+    &.flashcard-revealed{
+
+        background-color: var(--blue-400);
+
+
+        &>.flashcard-star-bottom{
+            transform: translateX(-16px);
+        }
+
+
+
+        &>.flashcard-main{
+            
+            &>h1{
+                animation: revealFlashcardTitle 0.15s ease-out forwards;
+                /* transform: translateY(calc(100%)); */
+                font-size: 24px;
+            }
+            &>button{
+                animation: revealFlashcardButton 0.15s ease-out forwards;
+                /* transform: translateY(calc(-100% - 32px)); */
+            }
+        }
+    }
+    
+}
+
+/*TODO: Fix the flashcard button/title animation*/
+
+@keyframes revealFlashcardButton {
+    0% {
+        transform: translateY(0);
+    }
+    90% {
+        transform: translateY(calc(-105% - 70px));
+    }
+    100% {
+        transform: translateY(calc(-100% - 64px));
+    }
+}
+
+@keyframes hideFlashcardButton {
+    0% {
+        transform: translateY(calc(-100% - 64px));
+    }
+    90% {
+        transform: translateY(calc(5% + 2px));
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes revealFlashcardTitle {
+    0% {
+        transform: translateY(0%);
+    }
+    90% {
+        transform: translateY(55%);
+    }
+    100% {
+        transform: translateY(50%);
+    }
+}
+
+@keyframes hideFlashcardTitle {
+    0% {
+        transform: translateY(55%);
+    }
+    90% {
+        transform: translateY(-5%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
