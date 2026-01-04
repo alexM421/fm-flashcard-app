@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use(flashcardsRouter);
+app.use("/flashcards", flashcardsRouter);
 
 // Start server
 app.listen(PORT, () => {

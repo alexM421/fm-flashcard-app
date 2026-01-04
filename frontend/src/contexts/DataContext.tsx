@@ -7,9 +7,10 @@ type DataContextType = {
   shuffledFlashcardsIds: string[];
   setShuffledFlashcardsIds: React.Dispatch<React.SetStateAction<string[]>>;
   fetchFlashcards: () => Promise<void>;
-  updateFlashcard: (flashcard: Flashcard) => Promise<void>;
+  updateFlashcard: (flashcard: Flashcard, flashcardId: string) => Promise<void>;
   deleteFlashcard: (flashcardId: string) => Promise<void>;
   createFlashcard: (flashcard: Flashcard) => Promise<void>;
+  updateKnownCount: (flashcardId: string, knownCount: number) => Promise<void>;
 };
 
 export const DataContext = createContext<DataContextType | undefined>(

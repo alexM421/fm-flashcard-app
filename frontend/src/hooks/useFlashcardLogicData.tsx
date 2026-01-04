@@ -1,13 +1,12 @@
 import { useMemo, useState } from "react";
 import { useDataContext } from "../contexts/DataContext";
-import type { Flashcard as FlashcardType } from "../types/types";
 
 export default function useFlashcardLogicData() {
   const {
     flashcards,
     shuffledFlashcardsIds,
     setShuffledFlashcardsIds,
-    setFlashcards,
+    updateKnownCount,
   } = useDataContext();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hideMastered, setHideMastered] = useState(false);
@@ -23,27 +22,25 @@ export default function useFlashcardLogicData() {
   const totalFlashcards = shuffledFlashcardsIds.length;
   const isCurrentFlashcardMastered = (currentFlashcard?.knownCount || 0) >= 5;
 
-  const increaseKnownCount = () =>
-    setFlashcards((prevFlashcards: FlashcardType[]) =>
-      currentFlashcard
-        ? prevFlashcards.map((flashcard) =>
-            flashcard.id === currentFlashcard.id
-              ? { ...flashcard, knownCount: flashcard.knownCount + 1 }
-              : flashcard,
-          )
-        : prevFlashcards,
-    );
+  const increaseKnownCount = async () => {
+    if(!currentFlashcard?.id) return;
+    const currentKnownCount = currentFlashcard.knownCount || 0;
+    const newKnownCount = currentKnownCount<5 ? currentKnownCount + 1 : 5;
+    try{
+      await updateKnownCount(currentFlashcard.id, newKnownCount);
+    }catch(error){
+      console.error('Failed to update known count:', error);
+    }
+};
 
-  const resetProgress = () =>
-    setFlashcards((prevFlashcards: FlashcardType[]) =>
-      currentFlashcard
-        ? prevFlashcards.map((flashcard) =>
-            flashcard.id === currentFlashcard.id
-              ? { ...flashcard, knownCount: 0 }
-              : flashcard,
-          )
-        : prevFlashcards,
-    );
+  const resetProgress = async () => {
+    if(!currentFlashcard?.id) return;
+    try{
+      await updateKnownCount(currentFlashcard.id, 0);
+    }catch(error){
+      console.error('Failed to update known count:', error);
+    }
+  };
 
   const incrementCount = () =>
     setCurrentIndex((prev) =>
@@ -71,4 +68,4 @@ export default function useFlashcardLogicData() {
     resetProgress,
     shuffleFlashcards,
   };
-}
+};
