@@ -10,11 +10,15 @@ import {
 
 const flashcardsRouter = Router();
 
-flashcardsRouter.get("/", getFlashcards);
-flashcardsRouter.post("/", createFlashcard);
-flashcardsRouter.put("/:id", updateFlashcard);
-flashcardsRouter.get("/:id", getFlashcardById);
-flashcardsRouter.delete("/:id", deleteFlashcard);
-flashcardsRouter.patch("/:id/known-count", updateKnownCount);
+flashcardsRouter.route("/")
+    .get(getFlashcards)
+    .post(createFlashcard)
+
+flashcardsRouter.route("/:id")
+    .put(updateFlashcard)
+    .get(getFlashcardById)
+    .delete(deleteFlashcard);
+
+    flashcardsRouter.patch("/:id/known-count", updateKnownCount);
 
 export default flashcardsRouter;
