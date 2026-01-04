@@ -35,7 +35,8 @@
   border: 1px solid var(--neutral-900);
   border-right: none;
 
-  &>h2, &>P{
+  & > h2,
+  & > P {
     color: var(--neutral-900);
   }
 }
@@ -49,14 +50,11 @@
   border-bottom-right-radius: 12px;
   border: 1px solid var(--neutral-900);
 
-
-  &>img{
+  & > img {
     width: 24px;
     aspect-ratio: 1/1;
   }
 }
-
-
 
 .study-stat-card-icon.total {
   background-color: var(--blue-400);
@@ -73,4 +71,3 @@
 .study-stat-card-icon.not-started {
   background-color: var(--pink-400);
 }
-

@@ -1,44 +1,45 @@
-.checkbox-input{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 16px;
-    height: 16px;
-    border-radius: 4px;
-    color: var(--neutral-900);
-    border: 1px solid var(--neutral-900);
-    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+.checkbox-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  color: var(--neutral-900);
+  border: 1px solid var(--neutral-900);
+  transition:
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
 
-    &>img{
-        opacity: 0;
-        width: 8px;
-        height: 8px;
-        transition: opacity 0.3s ease;
+  & > img {
+    opacity: 0;
+    width: 8px;
+    height: 8px;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 2px 2px 0px var(--neutral-900);
+  }
+
+  &:has(input:focus-visible) {
+    outline: 2px solid var(--blue-600);
+    outline-offset: 1px;
+    border-color: var(--neutral-900);
+  }
+
+  &:has(input:checked) {
+    background-color: var(--yellow-500);
+
+    & > img {
+      opacity: 100;
     }
+  }
 
-    &:hover{
-        cursor: pointer;
-        box-shadow: 2px 2px 0px var(--neutral-900);
-    }
-
-    &:has(input:focus-visible){
-        outline: 2px solid var(--blue-600);
-        outline-offset: 1px;
-        border-color: var(--neutral-900);
-    }
-
-    &:has(input:checked){
-        background-color: var(--yellow-500);
-
-        &>img{
-            opacity: 100;
-        }
-    }
-    
-    &>input{
-        pointer-events: none;
-        opacity: 0;
-        position: absolute;
-    }
-
+  & > input {
+    pointer-events: none;
+    opacity: 0;
+    position: absolute;
+  }
 }
