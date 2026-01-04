@@ -33,6 +33,7 @@
       }
 
       & > textarea {
+        background-color: var(--neutral-0);
         width: 100%;
         padding: 16px;
         border: 1px solid var(--neutral-900);
