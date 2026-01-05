@@ -1,16 +1,16 @@
 .all-cards-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  border: 1px solid var(--neutral-900);
-  background-color: var(--neutral-0);
-  box-shadow: 1px 1px 0px var(--neutral-900);
-  border-radius: 16px;
-  padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    border: 1px solid var(--neutral-900);
+    background-color: var(--neutral-0);
+    box-shadow: 1px 1px 0px var(--neutral-900);
+    border-radius: 16px;
+    padding: 32px;
 
-  & > button {
-    background-color: var(--yellow-500);
-    margin-top: 8px;
-    width: fit-content;
-  }
+    & > button {
+        background-color: var(--yellow-500);
+        margin-top: 8px;
+        width: fit-content;
+    }
 }

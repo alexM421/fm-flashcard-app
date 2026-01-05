@@ -1,82 +1,153 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import type { Flashcard } from "../types/types";
 import { DataContext } from "./DataContext";
+import { apiWrapper } from "./apiWrapper";
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
-  const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
-  const [shuffledFlashcardsIds, setShuffledFlashcardsIds] = useState<string[]>([]);
 
-  const fetchFlashcards = async () => {
-    const flashcardsDataResponse: Response = await fetch("http://localhost:3001/flashcards")
-    const flashcardsData: Flashcard[] = await flashcardsDataResponse.json();
-    setFlashcards(flashcardsData);
-    setShuffledFlashcardsIds(flashcardsData.map((flashcard) => flashcard.id));
-  };
+	const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
+    const [shuffledFlashcardsIds, setShuffledFlashcardsIds] = useState<string[]>([]);
+    
+    const fetchFlashcards = useCallback(async () => {
 
-  const createFlashcard = async (flashcard: Flashcard) => {
-    const flashcardsDataResponse: Response = await fetch("http://localhost:3001/flashcards", {
-      method: "POST",
-      body: JSON.stringify(flashcard),
-    });
-    console.log(flashcardsDataResponse);
-  };
+		const  { flashcards } = await apiWrapper<{ flashcards :Flashcard[] }>("/flashcards")
 
-  const updateFlashcard = async (flashcard: Flashcard, flashcardId: string) => {
-    const flashcardsDataResponse: Response = await fetch(`http://localhost:3001/flashcards/${flashcardId}`, {
-      method: "PUT",
-      body: JSON.stringify(flashcard),
-    });
-    console.log(flashcardsDataResponse);
-  };
+        setFlashcards(flashcards);
+        setShuffledFlashcardsIds(flashcards.map((flashcard) => flashcard.id));
+    
+	}, []);
 
-  const deleteFlashcard = async (flashcardId: string) => {
-    const flashcardsDataResponse: Response = await fetch(`http://localhost:3001/flashcards/${flashcardId}`, {
-      method: "DELETE",
-      body: JSON.stringify({ id: flashcardId }),
-    });
-    console.log(flashcardsDataResponse);
-  };
+    const createFlashcard = async (newFlashcard: Flashcard) => {
+        const previousFlashcards = [...flashcards];
+        const previousShuffledFlashcardsIds = [...shuffledFlashcardsIds];
 
-  const updateKnownCount = async (flashcardId: string, knownCount: number) => {
+        setFlashcards((prev) => [...prev, newFlashcard]);
+        setShuffledFlashcardsIds((prev) => [...prev, newFlashcard.id]);
 
-    const previousFlashcards = [...flashcards];
+        try {
 
-    setFlashcards(previousFlashcards.map((flashcard) => flashcard.id === flashcardId ? { ...flashcard, knownCount: knownCount } : flashcard));
+			const { flashcard } = await apiWrapper<{ flashcard: Flashcard }>("/flashcards", {
+				method: "POST",
+				body: newFlashcard
+			});
 
-    try{
-      const flashcardsDataResponse: Response = await fetch(`http://localhost:3001/flashcards/${flashcardId}/known-count`, {
-        method: "PATCH",
-        body: JSON.stringify({ knownCount: knownCount }),
-      });
-     
-      if(!flashcardsDataResponse.ok) {
-        throw new Error('Failed to update known count');
-      };
+            setFlashcards((prev) =>
+                prev.map((f) => (f.id === newFlashcard.id ? flashcard : f)),
+            );
 
-    }catch(error){
-      console.error('Failed to update known count:', error);
-      setFlashcards(previousFlashcards);
-      throw error;
-    }
-  };
+            // Update ID in shuffled array if it changed
+            if (flashcard.id !== newFlashcard.id) {
+                setShuffledFlashcardsIds((prev) => prev.map((id) =>
+					id === newFlashcard.id ? flashcard.id : id,
+                ));
+            }
 
-  useEffect(() => {
-    const intialDataFetch = async () => {
-      await fetchFlashcards();
+        } catch (error) {
+            console.error("Failed to create flashcard:", error);
+
+            setFlashcards(previousFlashcards);
+            setShuffledFlashcardsIds(previousShuffledFlashcardsIds);
+
+            throw error;
+        }
     };
-    intialDataFetch();
-  }, []);
 
-  const value = {
-    flashcards: flashcards,
-    shuffledFlashcardsIds: shuffledFlashcardsIds,
-    setShuffledFlashcardsIds: setShuffledFlashcardsIds,
-    fetchFlashcards: fetchFlashcards,
-    updateFlashcard: updateFlashcard,
-    deleteFlashcard: deleteFlashcard,
-    createFlashcard: createFlashcard,
-    updateKnownCount: updateKnownCount
-  };
+    const updateFlashcard = async (
+        toUpdateFlashcard: Flashcard,
+        flashcardId: string,
+    ) => {
 
-  return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
+        const previousFlashcards = [...flashcards];
+
+        setFlashcards((prev) => prev.map((flashcard) =>
+			flashcard.id === flashcardId ? toUpdateFlashcard : flashcard,
+        ));
+
+        try {
+
+			const { flashcard: updatedFlashcard} = await apiWrapper<{ flashcard: Flashcard}>(`/flashcards/${flashcardId}`, {
+				method: "PUT",
+				body: toUpdateFlashcard
+			})
+
+            setFlashcards(prev => prev.map(flashcard => flashcard.id === flashcardId ? updatedFlashcard : flashcard));
+
+        } catch (error) {
+            console.error("Failed to update flashcard:", error);
+            setFlashcards(previousFlashcards);
+            throw error;
+        }
+    };
+
+    const deleteFlashcard = async (flashcardId: string) => {
+        const previousFlashcards = [...flashcards];
+        const previousShuffledFlashcardsIds = [...shuffledFlashcardsIds];
+
+        setFlashcards((prev) => prev.filter((flashcard) => flashcard.id !== flashcardId));
+        setShuffledFlashcardsIds((prev) => prev.filter((id) => id !== flashcardId));
+
+        try {
+			
+			await apiWrapper<void>(`/flashcards/${flashcardId}`, {
+				method: "DELETE"
+			})
+
+        } catch (error) {
+            console.error("Failed to delete flashcard:", error);
+            setFlashcards(previousFlashcards);
+            setShuffledFlashcardsIds(previousShuffledFlashcardsIds);
+            throw error;
+        }
+    };
+
+    const updateKnownCount = async (
+        flashcardId: string,
+        knownCount: number,
+    ) => {
+
+        const previousFlashcards = [...flashcards];
+
+        setFlashcards((prev) => prev.map((flashcard) =>
+			flashcard.id === flashcardId
+				? { ...flashcard, knownCount: knownCount }
+				: flashcard,
+		));
+
+        try {
+
+			const { flashcard: updatedFlashcard } = await apiWrapper<{ flashcard: Flashcard }>(`/flashcards/${flashcardId}/known-count`, {
+				method: "PATCH",
+				body: { knownCount: knownCount }
+			})
+
+            setFlashcards(prev => prev.map(flashcard => flashcard.id === flashcardId? updatedFlashcard: flashcard))
+
+        } catch (error) {
+            console.error("Failed to update known count:", error);
+            setFlashcards(previousFlashcards);
+            throw error;
+        }
+    };
+
+    useEffect(() => {
+        const initialDataFetch = async () => {
+            await fetchFlashcards();
+        };
+        initialDataFetch();
+    }, [fetchFlashcards]);
+
+    const value = {
+        flashcards: flashcards,
+        shuffledFlashcardsIds: shuffledFlashcardsIds,
+        setShuffledFlashcardsIds: setShuffledFlashcardsIds,
+        fetchFlashcards: fetchFlashcards,
+        updateFlashcard: updateFlashcard,
+        deleteFlashcard: deleteFlashcard,
+        createFlashcard: createFlashcard,
+        updateKnownCount: updateKnownCount,
+    };
+
+    return (
+        <DataContext.Provider value={value}>{children}</DataContext.Provider>
+    );
 };

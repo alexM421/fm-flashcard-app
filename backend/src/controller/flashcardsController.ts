@@ -137,7 +137,6 @@ export const updateFlashcard = async (req: Request, res: Response) => {
   }
 
   try {
-
     const formattedFlashcard: {
       question: string;
       answer: string;

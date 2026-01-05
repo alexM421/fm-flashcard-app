@@ -1,11 +1,11 @@
 .background-modal {
-  position: fixed;
-  content: "";
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--neutral-900);
-  opacity: 0.5;
-  z-index: 1000;
+    position: fixed;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--neutral-900);
+    opacity: 0.5;
+    z-index: 1000;
 }

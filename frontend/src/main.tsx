@@ -5,9 +5,9 @@ import { router } from "./routes.tsx";
 import { DataProvider } from "./contexts/DataProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <DataProvider>
-      <RouterProvider router={router} />
-    </DataProvider>
-  </StrictMode>,
+    <StrictMode>
+        <DataProvider>
+            <RouterProvider router={router} />
+        </DataProvider>
+    </StrictMode>,
 );

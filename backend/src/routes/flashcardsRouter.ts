@@ -5,20 +5,19 @@ import {
   updateFlashcard,
   getFlashcardById,
   deleteFlashcard,
-  updateKnownCount
+  updateKnownCount,
 } from "../controller/flashcardsController";
 
 const flashcardsRouter = Router();
 
-flashcardsRouter.route("/")
-    .get(getFlashcards)
-    .post(createFlashcard)
+flashcardsRouter.route("/").get(getFlashcards).post(createFlashcard);
 
-flashcardsRouter.route("/:id")
-    .put(updateFlashcard)
-    .get(getFlashcardById)
-    .delete(deleteFlashcard);
+flashcardsRouter
+  .route("/:id")
+  .put(updateFlashcard)
+  .get(getFlashcardById)
+  .delete(deleteFlashcard);
 
-    flashcardsRouter.patch("/:id/known-count", updateKnownCount);
+flashcardsRouter.patch("/:id/known-count", updateKnownCount);
 
 export default flashcardsRouter;

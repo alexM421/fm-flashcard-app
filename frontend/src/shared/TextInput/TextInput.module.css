@@ -1,21 +1,21 @@
 .text-input {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 
-  & > p,
-  & > input {
-    color: var(--neutral-900);
-  }
-
-  & > input {
-    border: 1px solid var(--neutral-900);
-    border-radius: 6px;
-    padding: 16px;
-    background-color: transparent;
-
-    &:placeholder {
-      color: var(--neutral-600);
+    & > p,
+    & > input {
+        color: var(--neutral-900);
     }
-  }
+
+    & > input {
+        border: 1px solid var(--neutral-900);
+        border-radius: 6px;
+        padding: 16px;
+        background-color: transparent;
+
+        &:placeholder {
+            color: var(--neutral-600);
+        }
+    }
 }
