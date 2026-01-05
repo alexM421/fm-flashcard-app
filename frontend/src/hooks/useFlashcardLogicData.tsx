@@ -27,20 +27,13 @@ export default function useFlashcardLogicData() {
         if (!currentFlashcard?.id) return;
         const currentKnownCount = currentFlashcard.knownCount || 0;
         const newKnownCount = currentKnownCount < 5 ? currentKnownCount + 1 : 5;
-        try {
-            await updateKnownCount(currentFlashcard.id, newKnownCount);
-        } catch (error) {
-            console.error("Failed to update known count:", error);
-        }
+        await updateKnownCount(currentFlashcard.id, newKnownCount);
+ 
     };
 
     const resetProgress = async () => {
         if (!currentFlashcard?.id) return;
-        try {
-            await updateKnownCount(currentFlashcard.id, 0);
-        } catch (error) {
-            console.error("Failed to update known count:", error);
-        }
+        await updateKnownCount(currentFlashcard.id, 0);
     };
 
     const incrementCount = () =>
