@@ -11,18 +11,14 @@
     transition: opacity 0.3s ease-in-out;
     visibility: hidden;
 
-  
-
-
-    &>hr {
+    & > hr {
         border-top: none;
         border-left: none;
         border-right: none;
         border-bottom: 1px solid var(--neutral-900);
-
     }
 
-    &>button {
+    & > button {
         width: 100%;
         height: 36px;
         padding: 8px 16px;
@@ -47,12 +43,12 @@
             cursor: pointer;
         }
 
-        &>img {
+        & > img {
             width: 16px;
             height: 16px;
         }
 
-        &>p {
+        & > p {
             color: var(--neutral-900);
         }
     }
@@ -63,4 +59,3 @@
         visibility: visible;
     }
 }
-

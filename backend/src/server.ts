@@ -1,19 +1,19 @@
-import express, { Request, Response } from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import { supabase } from './lib/supabase.js';
+// Load environment variables FIRST, before any other imports
+import "./config/env.js";
 
-dotenv.config();
+import express, { Request, Response } from "express";
+import cors from "cors";
+import flashcardsRouter from "./routes/flashcardsRouter.js";
 
 const app = express();
-const PORT = process.env.PORT;
-
+const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
 // Routes
+app.use("/flashcards", flashcardsRouter);
 
 // Start server
 app.listen(PORT, () => {

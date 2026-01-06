@@ -1,18 +1,23 @@
-import styles from "./StudyStatistics.module.css"
-import StudyStatCard from "./StudyStatCard"
-import { useDataContext, type Flashcard } from "../../../contexts/DataContext"
+import styles from "./StudyStatistics.module.css";
+import StudyStatCard from "./StudyStatCard";
+import { useDataContext, type Flashcard } from "../../../contexts/DataContext";
 
-export default function StudyStatistics () {
-
-    const { flashcards } = useDataContext()
+export default function StudyStatistics() {
+    const { flashcards } = useDataContext();
 
     // Calculate statistics
-    const total = flashcards.length
-    const mastered = flashcards.filter((card: Flashcard) => card.knownCount >= 5).length
-    const inProgress = flashcards.filter((card: Flashcard) => card.knownCount >= 1 && card.knownCount < 5).length
-    const notStarted = flashcards.filter((card: Flashcard) => card.knownCount === 0).length
+    const total = flashcards.length;
+    const mastered = flashcards.filter(
+        (card: Flashcard) => card.knownCount >= 5,
+    ).length;
+    const inProgress = flashcards.filter(
+        (card: Flashcard) => card.knownCount >= 1 && card.knownCount < 5,
+    ).length;
+    const notStarted = flashcards.filter(
+        (card: Flashcard) => card.knownCount === 0,
+    ).length;
 
-    return(
+    return (
         <div className={styles["study-statistics"]}>
             <h1 className="text-preset-2">Study Statistics</h1>
             <div className={styles["study-statistics-content"]}>
@@ -42,5 +47,5 @@ export default function StudyStatistics () {
                 />
             </div>
         </div>
-    )
+    );
 }

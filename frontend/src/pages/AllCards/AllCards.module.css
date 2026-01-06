@@ -1,11 +1,11 @@
-.all-cards{
+.all-cards {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 32px;
 }
 
-.all-cards-empty{
+.all-cards-empty {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: center;
 
-    &>*{
+    & > * {
         color: var(--neutral-900);
     }
 }

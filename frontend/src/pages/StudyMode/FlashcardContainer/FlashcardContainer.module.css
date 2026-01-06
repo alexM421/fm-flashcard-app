@@ -1,4 +1,4 @@
-.flashcard-container{
+.flashcard-container {
     flex: 2;
     display: flex;
     flex-direction: column;
@@ -7,7 +7,7 @@
     border-radius: 16px;
     background-color: var(--neutral-0);
 
-    &>.flashcard-container-main{
+    & > .flashcard-container-main {
         flex: 1;
         display: flex;
         border-top: 1px solid var(--neutral-900);
@@ -15,27 +15,49 @@
         flex-direction: column;
         padding: 20px;
         gap: 20px;
-        
-        &>div{
+
+        @media screen and (max-width: 768px) {
+            padding: 16px;
+            gap: 16px;
+        }
+
+        & > div {
             display: flex;
             align-items: center;
             align-self: center;
             gap: 20px;
+            width: 100%;
 
-            &>button:first-of-type{
+            /* & > button:first-of-type {
                 background-color: var(--yellow-500);
+            } */
+
+            @media screen and (max-width: 768px) {
+                gap: 10px;
+                flex-direction: column;
+
+                &>button:last-of-type, &>button:nth-of-type(1){
+                    width: 100%;
+                    justify-content: center;
+                }
             }
         }
     }
 
-    &>.flashcard-container-footer{
+    & > .flashcard-container-footer {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 20px;
+        
+        @media screen and (max-width: 768px) {
+            &>button>p{
+                display: none;
+            }
+        }
     }
 
-    &>.flashcard-container-empty{
+    & > .flashcard-container-empty {
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -43,15 +65,15 @@
         align-items: center;
         justify-content: center;
 
-        &>p{
+        & > p {
             color: var(--neutral-600);
         }
 
-        &>h1{
+        & > h1 {
             color: var(--neutral-900);
         }
 
-        &>button{
+        & > button {
             width: fit-content;
             align-self: center;
             margin-top: 20px;
@@ -59,7 +81,7 @@
     }
 }
 
-.flashcard{
+.flashcard {
     position: relative;
     width: 100%;
     display: flex;
@@ -67,7 +89,7 @@
     justify-content: space-between;
     align-items: center;
     height: 360px;
-    background-image: url('/assets/images/pattern-flashcard-bg.svg');
+    background-image: url("/assets/images/pattern-flashcard-bg.svg");
     padding: 24px;
     background-color: var(--pink-400);
     border: 2px solid var(--neutral-900);
@@ -75,19 +97,19 @@
     border-radius: 16px;
     transition: background-color 0.2s ease;
 
-    &>.flashcard-star-top{
+    & > .flashcard-star-top {
         position: absolute;
-        top: 40px;    
+        top: 40px;
         right: 40px;
     }
-    &>.flashcard-star-bottom{
+    & > .flashcard-star-bottom {
         position: absolute;
         bottom: 52px;
         left: 40px;
         transition: transform 0.1s ease-out;
     }
 
-    &>p{
+    & > p {
         padding: 6px 12px;
         border-radius: 999px;
         width: fit-content; /* or just remove width property */
@@ -99,56 +121,53 @@
         box-shadow: 1px 1px 0px var(--neutral-900);
     }
 
-    &>.flashcard-main{
+    & > .flashcard-main {
         display: flex;
         flex-direction: column;
         gap: 16px;
         align-items: center;
+        background-color: transparent;
+        border: none;
+        animation: hideFlashcardButton 0.15s ease-out forwards;
 
-        &>h1, &>button{
+        &:hover {
+            cursor: pointer;
+        }
+
+        & > h1,
+        & > p {
             color: var(--neutral-900);
             /* transition: transform 0.15s ease-out; */
             animation: hideFlashcardTitle 0.15s ease-out forwards;
             text-align: center;
         }
 
-        &>button{
-            background-color: transparent;
-            border: none;
-            animation: hideFlashcardButton 0.15s ease-out forwards;
-
-            &:hover{
-                cursor: pointer;
-            }
-        }
-
     }
 
-    &.flashcard-revealed{
-
+    &.flashcard-revealed {
         background-color: var(--blue-400);
 
-
-        &>.flashcard-star-bottom{
+        & > .flashcard-star-bottom {
             transform: translateX(-16px);
         }
 
+        & > .flashcard-main {
 
+            flex-direction: column-reverse;
 
-        &>.flashcard-main{
-            
-            &>h1{
-                animation: revealFlashcardTitle 0.15s ease-out forwards;
-                /* transform: translateY(calc(100%)); */
+            &> h1{
                 font-size: 24px;
             }
-            &>button{
-                animation: revealFlashcardButton 0.15s ease-out forwards;
-                /* transform: translateY(calc(-100% - 32px)); */
+/* 
+            & > h1 {
+                animation: revealFlashcardTitle 0.15s ease-out forwards;
+                font-size: 24px;
             }
+            & > button {
+                animation: revealFlashcardButton 0.15s ease-out forwards;
+            } */
         }
     }
-    
 }
 
 /*TODO: Fix the flashcard button/title animation*/

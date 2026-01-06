@@ -14,25 +14,31 @@
     gap: 24px;
     z-index: 1001;
 
-    &>h1{
+    @media screen and (max-width: 768px) {
+        width: 90%;
+        padding: 16px;
+    }
+
+    & > h1 {
         color: var(--neutral-900);
     }
 
-    &>div{
+    & > div {
         display: flex;
         flex-direction: column;
         gap: 16px;
 
-        &>.edit-modal-answer{
+        & > .edit-modal-answer {
             display: flex;
             flex-direction: column;
             gap: 8px;
 
-            &>p{
+            & > p {
                 color: var(--neutral-900);
             }
 
-            &>textarea{
+            & > textarea {
+                background-color: var(--neutral-0);
                 width: 100%;
                 padding: 16px;
                 border: 1px solid var(--neutral-900);
@@ -40,14 +46,29 @@
                 height: 100px;
                 resize: none;
 
-                &:placeholder{
+                &:placeholder {
                     color: var(--neutral-600);
+                }
+            }
+
+            &>.error-msg{
+                display: flex;
+                align-items: center;
+                gap: 6px;
+        
+                &>img{
+                    width: 14px;
+                    height: 15px;
+                }
+        
+                &>p{
+                    color: var(--pink-700);
                 }
             }
         }
     }
 
-    &>button:first-of-type{
+    & > button:first-of-type {
         position: absolute;
         top: 16px;
         right: 16px;
@@ -58,25 +79,25 @@
         align-items: center;
         justify-content: center;
 
-        &>svg{
+        & > svg {
             color: var(--neutral-900);
             transition: color 0.3s ease;
         }
 
-        &:hover{
+        &:hover {
             cursor: pointer;
-            &>svg{
+            & > svg {
                 color: var(--neutral-600);
             }
         }
 
-        &:focus{
+        &:focus {
             outline: 1px solid var(--neutral-900);
             border-radius: 4px;
         }
     }
 
-    &>button:last-of-type{
+    & > button:last-of-type {
         width: fit-content;
         align-self: flex-end;
         background-color: var(--yellow-500);

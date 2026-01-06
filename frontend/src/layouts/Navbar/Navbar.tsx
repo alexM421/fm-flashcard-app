@@ -1,17 +1,15 @@
-import styles from "./Navbar.module.css"
+import styles from "./Navbar.module.css";
 
-import NavbarButton from "./NavbarButton"
+import NavbarButton from "./NavbarButton";
 
-export default function Navbar () {
-    
-
+export default function Navbar() {
     return (
         <nav className={styles["navbar"]}>
-            <img 
-                src="/assets/images/logo-large.svg"
-                alt="flashcard logo"
-            />
-            <NavbarButton/>
+            <picture>
+                <source srcSet="/assets/images/logo-large.svg" media="(min-width: 768px)" />
+                <img src="/assets/images/logo-small.svg" alt="flashcard logo" />
+            </picture>
+            <NavbarButton />
         </nav>
-    )
+    );
 }

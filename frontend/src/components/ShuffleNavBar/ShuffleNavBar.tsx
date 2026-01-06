@@ -1,94 +1,112 @@
-import styles from "./ShuffleNavBar.module.css"
-import CategorySelect from "../../shared/CategorySelect/CategorySelect"
-import CheckboxInput from "../../shared/CheckboxInput/CheckboxInput"
-import Button from "../../shared/Button/Button"
-import type { CategoryObj } from "../../types/types"
-import { useCallback, useState } from "react"
-import type { Flashcard as FlashcardType } from "../../types/types"
-import { slugify } from "../../utils/slugify"
-import type { SelectedCategoryType } from "../../types/types"
+import styles from "./ShuffleNavBar.module.css";
+import CategorySelect from "../../shared/CategorySelect/CategorySelect";
+import CheckboxInput from "../../shared/CheckboxInput/CheckboxInput";
+import Button from "../../shared/Button/Button";
+import type { CategoryObj } from "../../types/types";
+import { useCallback, useState } from "react";
+import type { Flashcard as FlashcardType } from "../../types/types";
+import { slugify } from "../../utils/slugify";
+import type { SelectedCategoryType } from "../../types/types";
 
 export type ShuffleNavBarProps = {
-    flashcards: FlashcardType[]
-    shuffleFlashcards: (flashcardsIds: string[]) => void
-    hideMastered: boolean
-    setHideMastered: (hideMastered: boolean) => void
-    noPadding?: boolean
-}
+    flashcards: FlashcardType[];
+    shuffleFlashcards: (flashcardsIds: string[]) => void;
+    hideMastered: boolean;
+    setHideMastered: (hideMastered: boolean) => void;
+    noPadding?: boolean;
+};
 
-export default function ShuffleNavBar ({ flashcards, shuffleFlashcards, noPadding = false, hideMastered, setHideMastered }: ShuffleNavBarProps) {
-
-
+export default function ShuffleNavBar({
+    flashcards,
+    shuffleFlashcards,
+    noPadding = false,
+    hideMastered,
+    setHideMastered,
+}: ShuffleNavBarProps) {
     // Gets the categories object array
-    function getCategoriesObjArr () {
-        const categoriesObjArr: CategoryObj[] = []
-        flashcards.map(flashcard => {
-            const { category } = flashcard
-            const categoryObj = categoriesObjArr.find(obj => obj.category === flashcard.category)
-            if(categoryObj === undefined) categoriesObjArr.push({ category, occurences: 1 })
-                else categoryObj.occurences++
-        })
-        return categoriesObjArr
+    function getCategoriesObjArr() {
+        const categoriesObjArr: CategoryObj[] = [];
+        flashcards.map((flashcard) => {
+            const { category } = flashcard;
+            const categoryObj = categoriesObjArr.find(
+                (obj) => obj.category === flashcard.category,
+            );
+            if (categoryObj === undefined)
+                categoriesObjArr.push({ category, occurences: 1 });
+            else categoryObj.occurences++;
+        });
+        return categoriesObjArr;
     }
-    
-    const categoriesObjArr = getCategoriesObjArr()
-    
+
+    const categoriesObjArr = getCategoriesObjArr();
+
     // Gets the selected categories
-    const [selectedCategories, setSelectedCategories] = useState<SelectedCategoryType>(() => {
-        const initial: SelectedCategoryType = {}
-        categoriesObjArr.forEach(categoryObj => {
-            const sluggedCategory = slugify(categoryObj.category)
-            initial[sluggedCategory] = false
-        })
-        return initial
-    })
-    
+    const [selectedCategories, setSelectedCategories] =
+        useState<SelectedCategoryType>(() => {
+            const initial: SelectedCategoryType = {};
+            categoriesObjArr.forEach((categoryObj) => {
+                const sluggedCategory = slugify(categoryObj.category);
+                initial[sluggedCategory] = false;
+            });
+            return initial;
+        });
+
     const shuffleFlashcardsIds = useCallback(() => {
-        
-        const noCategoriesSelected = Object.values(selectedCategories).every(value => !value)
-        
+        const noCategoriesSelected = Object.values(selectedCategories).every(
+            (value) => !value,
+        );
+
         // Filters the flashcards by categories
-        let filteredFlashcards = flashcards.filter(flashcard => {
-            
-            if(noCategoriesSelected) return true
-            const { category } = flashcard
-            const sluggedCategory = slugify(category)
-            return selectedCategories[sluggedCategory]
-        })
-        
-        filteredFlashcards = filteredFlashcards.filter(flashcard => {
-            if(hideMastered) return flashcard.knownCount < 5
-            return true
-        })
-        
-        const shuffledFlashcardsArr = []
-        while(filteredFlashcards.length > 0) {
-            const randomIndex = Math.floor(Math.random() * filteredFlashcards.length)
-            shuffledFlashcardsArr.push(filteredFlashcards[randomIndex])
-            filteredFlashcards.splice(randomIndex, 1)
+        let filteredFlashcards = flashcards.filter((flashcard) => {
+            if (noCategoriesSelected) return true;
+            const { category } = flashcard;
+            const sluggedCategory = slugify(category);
+            return selectedCategories[sluggedCategory];
+        });
+
+        filteredFlashcards = filteredFlashcards.filter((flashcard) => {
+            if (hideMastered) return flashcard.knownCount < 5;
+            return true;
+        });
+
+        const shuffledFlashcardsArr = [];
+        while (filteredFlashcards.length > 0) {
+            const randomIndex = Math.floor(
+                Math.random() * filteredFlashcards.length,
+            );
+            shuffledFlashcardsArr.push(filteredFlashcards[randomIndex]);
+            filteredFlashcards.splice(randomIndex, 1);
         }
-        
-        shuffleFlashcards(shuffledFlashcardsArr.map(flashcard => flashcard.id))
-    }, [flashcards, hideMastered, selectedCategories, shuffleFlashcards])
-    
 
+        shuffleFlashcards(
+            shuffledFlashcardsArr.map((flashcard) => flashcard.id),
+        );
+    }, [flashcards, hideMastered, selectedCategories, shuffleFlashcards]);
 
-    return(
-        <div className={`${styles["shuffle-nav-bar"]} ${noPadding ? styles["no-padding"] : ""}`}>
-            <CategorySelect 
-                categoryObjArr={categoriesObjArr}
-                selectedCategories={selectedCategories}
-                setSelectedCategories={setSelectedCategories}
-            />
-            <div className={styles["hide-mastered"]}>
-                <CheckboxInput id="hide-mastered" onChange={() => setHideMastered(!hideMastered)} value={hideMastered} />
-                <p className="text-preset-4-medium">Hide Mastered</p>
+    return (
+        <div
+            className={`${styles["shuffle-nav-bar"]} ${noPadding ? styles["no-padding"] : ""}`}
+        >
+            <div>
+                <CategorySelect
+                    categoryObjArr={categoriesObjArr}
+                    selectedCategories={selectedCategories}
+                    setSelectedCategories={setSelectedCategories}
+                />
+                <div className={styles["hide-mastered"]}>
+                    <CheckboxInput
+                        id="hide-mastered"
+                        onChange={() => setHideMastered(!hideMastered)}
+                        value={hideMastered}
+                    />
+                    <p className="text-preset-4-medium">Hide Mastered</p>
+                </div>
             </div>
-            <Button 
-                imgSrcName="icon-shuffle.svg" 
-                text="shuffle" 
+            <Button
+                imgSrcName="icon-shuffle.svg"
+                text="shuffle"
                 onClick={shuffleFlashcardsIds}
             />
         </div>
-    )
+    );
 }
