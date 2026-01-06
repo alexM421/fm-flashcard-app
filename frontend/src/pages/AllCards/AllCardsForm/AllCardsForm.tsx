@@ -30,6 +30,7 @@ export default function AllCardsForm() {
 
         if(Object.values(tempErrors).every(value => !value)){
 
+
             const randomid = "fc" + Math.floor(1000 + Math.random() * 9000).toString();
 
             const newFlashcard = {
@@ -94,6 +95,7 @@ export default function AllCardsForm() {
                     imgSrcName="icon-circle-plus.svg"
                     variants="shadow"
                     onClick={() => {}}
+                    type="submit"
                 />
                 {serverError.error && <div className={styles["error-div"]}>
                     <img src="/assets/images/icon-error.svg" alt="error-icon" />

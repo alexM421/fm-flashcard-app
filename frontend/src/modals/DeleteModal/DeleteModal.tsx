@@ -5,12 +5,23 @@ import useHandleClickOutside from "../../hooks/useHandleClickOutside";
 
 export default function DeleteModal({
     setShowDeleteModal,
+    deleteFlashcard,
 }: {
     setShowDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
+    deleteFlashcard: () => void | Promise<void>;
 }) {
     const deleteModalRef = useRef<HTMLDivElement>(null);
 
     useHandleClickOutside(deleteModalRef, setShowDeleteModal);
+
+    const handleDelete = async () => {
+        try {
+            await deleteFlashcard();
+        } catch (error) {
+            console.error("Failed to delete flashcard:", error);
+            // Modal stays open on error so user can retry
+        }
+    };
 
     return (
         <div className={styles["delete-modal"]} ref={deleteModalRef}>
@@ -28,7 +39,7 @@ export default function DeleteModal({
                 />
                 <Button
                     text="Delete Card"
-                    onClick={() => setShowDeleteModal(false)}
+                    onClick={handleDelete}
                     variants="shadow"
                 />
             </div>

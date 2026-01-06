@@ -50,6 +50,7 @@ export default function FlashcardCard({ flashcard }: { flashcard: Flashcard }) {
                             showMenuModal={showMenuModal}
                             setShowMenuModal={setShowMenuModal}
                             buttonRef={menuButtonRef}
+                            flashcard={flashcard}
                         />
                     </div>
                 </div>

@@ -5,15 +5,19 @@ import useHandleClickOutside from "../../hooks/useHandleClickOutside";
 import EditModal from "../EditModal/EditModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import BackgroundModal from "../BackgroundModal/BackgroundModal";
+import { useDataContext } from "../../contexts/DataContext";
+import type { Flashcard } from "../../types/types";
 
 export default function MenuModal({
     showMenuModal,
     setShowMenuModal,
     buttonRef,
+    flashcard,
 }: {
     showMenuModal: boolean;
     setShowMenuModal: React.Dispatch<React.SetStateAction<boolean>>;
     buttonRef: React.RefObject<HTMLButtonElement | null>;
+    flashcard: Flashcard;
 }) {
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -21,6 +25,13 @@ export default function MenuModal({
     const menuModalRef = useRef<HTMLDivElement>(null);
 
     useHandleClickOutside(menuModalRef, setShowMenuModal, buttonRef);
+
+    const { deleteFlashcard, updateFlashcard } = useDataContext()
+    
+    const deleteCard = async () => {
+        await deleteFlashcard(flashcard.id);
+        setShowDeleteModal(false);
+    }
 
     return (
         <>
@@ -48,7 +59,7 @@ export default function MenuModal({
                 showEditModal && (
                     <>
                         <BackgroundModal />
-                        <EditModal setShowEditModal={setShowEditModal} />
+                        <EditModal setShowEditModal={setShowEditModal} updateFlashcard={updateFlashcard} flashcard={flashcard} />
                     </>
                 ),
                 document.getElementById("root")!,
@@ -57,7 +68,7 @@ export default function MenuModal({
                 showDeleteModal && (
                     <>
                         <BackgroundModal />
-                        <DeleteModal setShowDeleteModal={setShowDeleteModal} />
+                        <DeleteModal setShowDeleteModal={setShowDeleteModal} deleteFlashcard={deleteCard} />
                     </>
                 ),
                 document.getElementById("root")!,

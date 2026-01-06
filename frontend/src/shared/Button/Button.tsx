@@ -8,10 +8,11 @@ type ButtonProps = {
     variants?: "reverse" | "shadow";
     onClick: () => void;
     disabled?: boolean;
+    type?: "button" | "submit" | "reset";
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ text, imgSrcName, variants, onClick, disabled }: ButtonProps, ref) => {
+    ({ text, imgSrcName, variants, onClick, disabled, type = "button" }: ButtonProps, ref) => {
         const sluggedText = slugify(text);
 
         return (
@@ -20,6 +21,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 onClick={onClick}
                 ref={ref}
                 disabled={disabled}
+                type={type}
             >
                 {imgSrcName && (
                     <img

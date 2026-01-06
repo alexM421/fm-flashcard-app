@@ -45,6 +45,21 @@
                     color: var(--neutral-600);
                 }
             }
+
+            &>.error-msg{
+                display: flex;
+                align-items: center;
+                gap: 6px;
+        
+                &>img{
+                    width: 14px;
+                    height: 15px;
+                }
+        
+                &>p{
+                    color: var(--pink-700);
+                }
+            }
         }
     }
 
