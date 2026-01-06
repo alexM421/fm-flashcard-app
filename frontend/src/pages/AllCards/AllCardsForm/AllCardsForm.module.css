@@ -8,6 +8,10 @@
     border-radius: 16px;
     padding: 32px;
 
+    @media screen and (max-width: 768px) {
+        padding: 16px;
+    }
+
     &>.form-footer{
         
         margin-top: 8px;

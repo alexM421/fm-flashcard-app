@@ -12,11 +12,21 @@
     flex-direction: column;
     z-index: 1001;
 
+    @media screen and (max-width: 768px) {
+        width: 90%;
+        padding: 12px;
+    }
+
     & > .delete-modal-content {
         display: flex;
         flex-direction: column;
         padding: 24px;
         gap: 16px;
+
+        @media screen and (max-width: 768px) {
+            padding: 12px;
+            gap: 12px;
+        }
 
         & > * {
             color: var(--neutral-900);

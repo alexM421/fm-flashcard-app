@@ -87,18 +87,20 @@ export default function ShuffleNavBar({
         <div
             className={`${styles["shuffle-nav-bar"]} ${noPadding ? styles["no-padding"] : ""}`}
         >
-            <CategorySelect
-                categoryObjArr={categoriesObjArr}
-                selectedCategories={selectedCategories}
-                setSelectedCategories={setSelectedCategories}
-            />
-            <div className={styles["hide-mastered"]}>
-                <CheckboxInput
-                    id="hide-mastered"
-                    onChange={() => setHideMastered(!hideMastered)}
-                    value={hideMastered}
+            <div>
+                <CategorySelect
+                    categoryObjArr={categoriesObjArr}
+                    selectedCategories={selectedCategories}
+                    setSelectedCategories={setSelectedCategories}
                 />
-                <p className="text-preset-4-medium">Hide Mastered</p>
+                <div className={styles["hide-mastered"]}>
+                    <CheckboxInput
+                        id="hide-mastered"
+                        onChange={() => setHideMastered(!hideMastered)}
+                        value={hideMastered}
+                    />
+                    <p className="text-preset-4-medium">Hide Mastered</p>
+                </div>
             </div>
             <Button
                 imgSrcName="icon-shuffle.svg"

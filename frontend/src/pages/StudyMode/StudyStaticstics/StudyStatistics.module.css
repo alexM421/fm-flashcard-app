@@ -8,12 +8,32 @@
     box-shadow: 1px 1px 0px var(--neutral-900);
     padding: 24px;
     border-radius: 16px;
+
+    @media screen and (max-width: 1024px) {
+        padding: 20px;
+    }
+
+    @media screen and (max-width: 768px) {
+        padding: 16px;
+    }
 }
 
 .study-statistics-content {
     display: flex;
     flex-direction: column;
     gap: 20px;
+
+    @media screen and (max-width: 1024px) {
+        gap: 20px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
 }
 
 .study-stat-card {

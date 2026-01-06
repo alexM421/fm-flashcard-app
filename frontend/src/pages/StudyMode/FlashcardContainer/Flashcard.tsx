@@ -37,17 +37,16 @@ export default function Flashcard({ flashcard }: FlashcardProps) {
                 className={styles["flashcard-star-bottom"]}
             />
             <p className="text-preset-6">{category}</p>
-            <div className={styles["flashcard-main"]}>
+            <button onClick={() => setIsRevealed(!isRevealed)} className={styles["flashcard-main"]}>
                 <h1 className="text-preset-1">
                     {isRevealed ? answer : question}
                 </h1>
-                <button
-                    onClick={() => setIsRevealed(!isRevealed)}
+                <p
                     className="text-preset-4-medium"
                 >
                     {!isRevealed ? "Click to reveal answer" : "Answer :"}
-                </button>
-            </div>
+                </p>
+            </button>
             <KnowledgeCount knownCount={knownCount} />
         </div>
     );
