@@ -1,6 +1,6 @@
 type methodType = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 
-const baseUrl = "http://localhost:3001";
+const baseUrl = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
 	
 export const apiWrapper = async <T,> (
     endpoint: string,

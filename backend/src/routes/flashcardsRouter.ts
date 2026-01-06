@@ -6,7 +6,7 @@ import {
   getFlashcardById,
   deleteFlashcard,
   updateKnownCount,
-} from "../controller/flashcardsController";
+} from "../controller/flashcardsController.js";
 
 const flashcardsRouter = Router();
 
