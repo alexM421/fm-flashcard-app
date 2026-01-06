@@ -1,4 +1,9 @@
-.study-mode{
+.study-mode {
     display: flex;
     gap: 32px;
+
+    @media screen and (max-width: 1024px) {
+        flex-direction: column;
+        gap: 24px;
+    }
 }

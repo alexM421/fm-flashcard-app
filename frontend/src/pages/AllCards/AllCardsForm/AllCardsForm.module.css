@@ -7,10 +7,38 @@
     box-shadow: 1px 1px 0px var(--neutral-900);
     border-radius: 16px;
     padding: 32px;
-    
-    &>button{
-        background-color: var(--yellow-500);
-        margin-top: 8px;
-        width: fit-content;
+
+    @media screen and (max-width: 768px) {
+        padding: 16px;
     }
+
+    &>.form-footer{
+        
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        & > button {
+            background-color: var(--yellow-500);
+            width: fit-content;
+        }
+
+        &>.error-div{
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            &>img{
+                width: 15px;
+                height: 15px;
+            }
+
+            &>p{
+                color: var(--pink-700);
+            }
+        }
+
+    }
+
 }

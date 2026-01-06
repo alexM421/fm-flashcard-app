@@ -1,13 +1,12 @@
-import styles from "./StudyMode.module.css"
-import FlashcardContainer from "./FlashcardContainer/FlashcardContainer"
-import StudyStatistics from "./StudyStaticstics/StudyStatistics"
+import styles from "./StudyMode.module.css";
+import FlashcardContainer from "./FlashcardContainer/FlashcardContainer";
+import StudyStatistics from "./StudyStaticstics/StudyStatistics";
 
-export default function StudyMode () { 
-
+export default function StudyMode() {
     return (
         <div className={styles["study-mode"]}>
-            <FlashcardContainer/>
+            <FlashcardContainer />
             <StudyStatistics />
         </div>
-    )
+    );
 }

@@ -1,7 +1,7 @@
-.category-select{
+.category-select {
     position: relative;
 
-    &>.categories-selection{
+    & > .categories-selection {
         opacity: 0;
         pointer-events: none;
         position: absolute;
@@ -14,7 +14,7 @@
         z-index: 1000;
         visibility: hidden;
 
-        &>.category-item{
+        & > .category-item {
             display: flex;
             align-items: center;
             padding: 8px 16px;
@@ -23,25 +23,25 @@
             background-color: var(--neutral-0);
             transition: background-color 0.3s ease;
 
-            &>p{
+            & > p {
                 color: var(--neutral-900);
-               
-                
-                &>span{
+
+                & > span {
                     color: var(--neutral-600);
                 }
             }
 
-            &:hover{
+            &:hover {
                 cursor: pointer;
                 background-color: var(--neutral-100);
             }
         }
 
-        &.visible{
+        &.visible {
             opacity: 1;
             pointer-events: all;
             visibility: visible;
         }
     }
+
 }
