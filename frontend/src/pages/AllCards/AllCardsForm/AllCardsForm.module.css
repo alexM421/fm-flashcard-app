@@ -8,9 +8,33 @@
     border-radius: 16px;
     padding: 32px;
 
-    & > button {
-        background-color: var(--yellow-500);
+    &>.form-footer{
+        
         margin-top: 8px;
-        width: fit-content;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        & > button {
+            background-color: var(--yellow-500);
+            width: fit-content;
+        }
+
+        &>.error-div{
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            &>img{
+                width: 15px;
+                height: 15px;
+            }
+
+            &>p{
+                color: var(--pink-700);
+            }
+        }
+
     }
+
 }

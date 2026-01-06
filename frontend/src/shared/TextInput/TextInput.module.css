@@ -13,9 +13,36 @@
         border-radius: 6px;
         padding: 16px;
         background-color: transparent;
+        box-shadow: none;
+        transition: box-shadow 0.3s ease, border-color 0.3s ease;
 
         &:placeholder {
             color: var(--neutral-600);
         }
+
+        &:focus{
+            outline: none;
+            box-shadow: 1px 1px 0px var(--neutral-900);
+        }
+    }
+
+    &>.error-msg{
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        &>img{
+            width: 14px;
+            height: 15px;
+        }
+
+        &>p{
+            color: var(--pink-700);
+        }
+    }
+
+    &.text-input-error>input{
+        box-shadow: 1px 1px 0px var(--pink-700);
+        border-color: var(--pink-700);
     }
 }

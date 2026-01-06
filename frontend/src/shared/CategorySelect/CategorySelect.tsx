@@ -33,13 +33,14 @@ export default function CategorySelect({
     useHandleClickOutside(selectionRef, setIsVisible, btnRef);
 
     return (
-        <div className={styles["category-select"]}>
+        <div className={`${styles["category-select"]}`}>
             <Button
                 imgSrcName="icon-chevron-down.svg"
                 text="All Categories"
                 variants="reverse"
                 ref={btnRef}
                 onClick={() => setIsVisible((prevState) => !prevState)}
+                disabled={categoryObjArr.length === 0}
             />
             <div
                 className={`${styles["categories-selection"]} ${isVisible ? styles["visible"] : ""}`}
