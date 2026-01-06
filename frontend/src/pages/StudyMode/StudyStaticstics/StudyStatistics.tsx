@@ -1,6 +1,7 @@
 import styles from "./StudyStatistics.module.css";
 import StudyStatCard from "./StudyStatCard";
-import { useDataContext, type Flashcard } from "../../../contexts/DataContext";
+import { useDataContext } from "../../../contexts/DataContext";
+import type { Flashcard } from "../../../types/types";
 
 export default function StudyStatistics() {
     const { flashcards } = useDataContext();
