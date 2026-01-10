@@ -24,13 +24,14 @@
         & > div {
             display: flex;
             align-items: center;
+            justify-content: center;
             align-self: center;
             gap: 20px;
             width: 100%;
 
-            /* & > button:first-of-type {
+            & > button:first-of-type {
                 background-color: var(--yellow-500);
-            } */
+            }
 
             @media screen and (max-width: 768px) {
                 gap: 10px;
@@ -97,6 +98,10 @@
     border-radius: 16px;
     transition: background-color 0.2s ease;
 
+        &:hover {
+        cursor: pointer;
+    }
+
     & > .flashcard-star-top {
         position: absolute;
         top: 40px;
@@ -128,19 +133,17 @@
         align-items: center;
         background-color: transparent;
         border: none;
-        animation: hideFlashcardButton 0.15s ease-out forwards;
-
-        &:hover {
-            cursor: pointer;
-        }
-
-        & > h1,
+ 
+        /* & > h1,
         & > p {
             color: var(--neutral-900);
-            /* transition: transform 0.15s ease-out; */
-            animation: hideFlashcardTitle 0.15s ease-out forwards;
             text-align: center;
-        }
+            position: absolute;
+            left: 50%;
+            width: 1000px;
+            top: 0;
+        } */
+
 
     }
 
@@ -152,70 +155,11 @@
         }
 
         & > .flashcard-main {
-
             flex-direction: column-reverse;
 
-            &> h1{
+            &>h1{
                 font-size: 24px;
             }
-/* 
-            & > h1 {
-                animation: revealFlashcardTitle 0.15s ease-out forwards;
-                font-size: 24px;
-            }
-            & > button {
-                animation: revealFlashcardButton 0.15s ease-out forwards;
-            } */
         }
-    }
-}
-
-/*TODO: Fix the flashcard button/title animation*/
-
-@keyframes revealFlashcardButton {
-    0% {
-        transform: translateY(0);
-    }
-    90% {
-        transform: translateY(calc(-105% - 70px));
-    }
-    100% {
-        transform: translateY(calc(-100% - 64px));
-    }
-}
-
-@keyframes hideFlashcardButton {
-    0% {
-        transform: translateY(calc(-100% - 64px));
-    }
-    90% {
-        transform: translateY(calc(5% + 2px));
-    }
-    100% {
-        transform: translateY(0%);
-    }
-}
-
-@keyframes revealFlashcardTitle {
-    0% {
-        transform: translateY(0%);
-    }
-    90% {
-        transform: translateY(55%);
-    }
-    100% {
-        transform: translateY(50%);
-    }
-}
-
-@keyframes hideFlashcardTitle {
-    0% {
-        transform: translateY(55%);
-    }
-    90% {
-        transform: translateY(-5%);
-    }
-    100% {
-        transform: translateY(0);
     }
 }
