@@ -2,6 +2,7 @@ import type { Flashcard as FlashcardType } from "../../../types/types";
 import KnowledgeCount from "../../../shared/KnwoledgeCount/KnowledgeCount";
 import styles from "./FlashcardContainer.module.css";
 import { useState } from "react";
+import FlashcardAnimatedText from "./FlashcardAnimatedText";
 
 type FlashcardProps = {
     flashcard: FlashcardType | undefined;
@@ -15,7 +16,8 @@ export default function Flashcard({ flashcard }: FlashcardProps) {
     const { knownCount, category, question, answer } = flashcard;
 
     return (
-        <div
+        <button
+            onClick={() => setIsRevealed(!isRevealed)}
             className={`${styles["flashcard"]} ${isRevealed ? styles["flashcard-revealed"] : ""}`}
         >
             {isRevealed ? (
@@ -37,17 +39,8 @@ export default function Flashcard({ flashcard }: FlashcardProps) {
                 className={styles["flashcard-star-bottom"]}
             />
             <p className="text-preset-6">{category}</p>
-            <button onClick={() => setIsRevealed(!isRevealed)} className={styles["flashcard-main"]}>
-                <h1 className="text-preset-1">
-                    {isRevealed ? answer : question}
-                </h1>
-                <p
-                    className="text-preset-4-medium"
-                >
-                    {!isRevealed ? "Click to reveal answer" : "Answer :"}
-                </p>
-            </button>
+            <FlashcardAnimatedText question={question} answer={answer} isRevealed={isRevealed} />
             <KnowledgeCount knownCount={knownCount} />
-        </div>
+        </button>
     );
 }
