@@ -6,7 +6,7 @@ import cors from "cors";
 import flashcardsRouter from "./routes/flashcardsRouter.js";
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = Number(process.env.PORT) || 3001;
 
 // Middleware
 app.use(cors());
@@ -20,6 +20,6 @@ app.get("/health", (req, res) => {
 app.use("/api/flashcards", flashcardsRouter);
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
