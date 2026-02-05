@@ -1,5 +1,9 @@
 // Load environment variables FIRST, before any other imports
+console.log("PORT AT BOOT:", process.env.PORT);
+
 import "./config/env.js";
+
+console.log("PORT AFTER env.js:", process.env.PORT);
 
 import express, { Request, Response } from "express";
 import cors from "cors";
