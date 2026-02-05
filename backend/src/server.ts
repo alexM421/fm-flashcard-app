@@ -13,6 +13,10 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
 app.use("/api/flashcards", flashcardsRouter);
 
 // Start server
