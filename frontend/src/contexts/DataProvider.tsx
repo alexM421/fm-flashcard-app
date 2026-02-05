@@ -10,7 +10,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
     
     const fetchFlashcards = useCallback(async () => {
 
-		const  { flashcards } = await apiWrapper<{ flashcards :Flashcard[] }>("/flashcards")
+		const  { flashcards } = await apiWrapper<{ flashcards :Flashcard[] }>("/api/flashcards")
 
         setFlashcards(flashcards);
         setShuffledFlashcardsIds(flashcards.map((flashcard) => flashcard.id));
@@ -26,7 +26,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
 
         try {
 
-			const { flashcard } = await apiWrapper<{ flashcard: Flashcard }>("/flashcards", {
+			const { flashcard } = await apiWrapper<{ flashcard: Flashcard }>("/api/flashcards", {
 				method: "POST",
 				body: newFlashcard
 			});
@@ -65,7 +65,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
 
         try {
 
-			const { flashcard: updatedFlashcard} = await apiWrapper<{ flashcard: Flashcard}>(`/flashcards/${flashcardId}`, {
+			const { flashcard: updatedFlashcard} = await apiWrapper<{ flashcard: Flashcard}>(`/api/flashcards/${flashcardId}`, {
 				method: "PUT",
 				body: toUpdateFlashcard
 			})
@@ -88,7 +88,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
 
         try {
 			
-			await apiWrapper<void>(`/flashcards/${flashcardId}`, {
+			await apiWrapper<void>(`/api/flashcards/${flashcardId}`, {
 				method: "DELETE"
 			})
 
@@ -115,7 +115,7 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
 
         try {
 
-			const { flashcard: updatedFlashcard } = await apiWrapper<{ flashcard: Flashcard }>(`/flashcards/${flashcardId}/known-count`, {
+			const { flashcard: updatedFlashcard } = await apiWrapper<{ flashcard: Flashcard }>(`/api/flashcards/${flashcardId}/known-count`, {
 				method: "PATCH",
 				body: { knownCount: knownCount }
 			})
