@@ -27,10 +27,9 @@ const AuthProvider = ({children} : {children: React.ReactNode}) => {
         return () => subscription.unsubscribe()
       }, [])
       
-    const value="value"
 
     return(
-        <AuthContext.Provider value={value}>
+        <AuthContext.Provider value={session}>
             {children}
         </AuthContext.Provider>
     )

@@ -10,6 +10,7 @@ import {
 
 const flashcardsRouter = Router();
 
+console.log("Flashcards router configured");
 flashcardsRouter.route("/").get(getFlashcards).post(createFlashcard);
 
 flashcardsRouter

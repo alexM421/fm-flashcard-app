@@ -8,6 +8,7 @@ console.log("PORT AFTER env.js:", process.env.PORT);
 import express, { Request, Response } from "express";
 import cors from "cors";
 import flashcardsRouter from "./routes/flashcardsRouter.js";
+import authMiddleware from "./middleware/authMiddleware.js";
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3001;
@@ -21,7 +22,7 @@ app.get("/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
-app.use("/api/flashcards", flashcardsRouter);
+app.use("/api/flashcards", authMiddleware, flashcardsRouter);
 
 // Start server
 app.listen(PORT, "0.0.0.0", () => {

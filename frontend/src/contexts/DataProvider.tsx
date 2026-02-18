@@ -10,7 +10,6 @@ export const DataProvider = ({ children }: { children: React.ReactNode }) => {
 
 	const fetchFlashcards = useCallback(async () => {
 		const { flashcards } = await api<{ flashcards: Flashcard[] }>("/api/flashcards");
-
 		setFlashcards(flashcards);
 		setShuffledFlashcardsIds(flashcards.map((flashcard) => flashcard.id));
 	}, [api]);
