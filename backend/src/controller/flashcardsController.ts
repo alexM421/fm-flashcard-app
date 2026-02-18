@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { supabase } from "../lib/supabase.js";
 
 // Define the Flashcard type
 export type Flashcard = {
@@ -29,8 +28,10 @@ const mapFlashcardFromDB = (dbCard: DatabaseFlashcard): Flashcard => ({
 });
 
 export const getFlashcards = async (req: Request, res: Response) => {
+  const db = req.supabase!;
+
   try {
-    const { data, error } = await supabase
+    const { data, error } = await db
       .from("flashcards")
       .select("app_id, question, answer, category, known_count");
 
@@ -85,7 +86,8 @@ export const createFlashcard = async (req: Request, res: Response) => {
       formattedFlashcard.app_id = body.id;
     }
 
-    const { data, error } = await supabase
+    const db = req.supabase!;
+    const { data, error } = await db
       .from("flashcards")
       .insert(formattedFlashcard)
       .select("app_id, question, answer, category, known_count");
@@ -153,7 +155,8 @@ export const updateFlashcard = async (req: Request, res: Response) => {
       formattedFlashcard.known_count = body.knownCount;
     }
 
-    const { data, error } = await supabase
+    const db = req.supabase!;
+    const { data, error } = await db
       .from("flashcards")
       .update(formattedFlashcard)
       .eq("app_id", id)
@@ -197,7 +200,8 @@ export const getFlashcardById = async (req: Request, res: Response) => {
   const id = params.id;
 
   try {
-    const { data, error } = await supabase
+    const db = req.supabase!;
+    const { data, error } = await db
       .from("flashcards")
       .select("app_id, question, answer, category, known_count")
       .eq("app_id", id);
@@ -238,7 +242,8 @@ export const deleteFlashcard = async (req: Request, res: Response) => {
   const id = params.id;
 
   try {
-    const { data, error } = await supabase
+    const db = req.supabase!;
+    const { data, error } = await db
       .from("flashcards")
       .delete()
       .eq("app_id", id)
@@ -280,7 +285,8 @@ export const updateKnownCount = async (req: Request, res: Response) => {
   const knownCount = body.knownCount ?? 0;
 
   try {
-    const { data, error } = await supabase
+    const db = req.supabase!;
+    const { data, error } = await db
       .from("flashcards")
       .update({ known_count: knownCount })
       .eq("app_id", id)
