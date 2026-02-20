@@ -68,6 +68,7 @@ Users should be able to:
 
 ### Links
 
+- [Solution](https://www.frontendmentor.io/solutions/responsive-flashcard-app-Lv3eTkKOEP) – Frontend Mentor
 - [Flashcard app challenge](https://www.frontendmentor.io/challenges/flashcard-app) – Frontend Mentor
 - [Live site](https://bright-daifuku-350dd2.netlify.app/) – Netlify
 
