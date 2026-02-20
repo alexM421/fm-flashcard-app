@@ -8,15 +8,13 @@ This is a solution to the [Flashcard app challenge on Frontend Mentor](https://w
   - [The challenge](#the-challenge)
   - [Screenshot](#screenshot)
   - [Links](#links)
-- [My process](#my-process)
-  - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
+- [Project structure](#project-structure)
+- [Getting started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Environment variables](#environment-variables)
+  - [Run locally](#run-locally)
+- [Built with](#built-with)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
-
-**Note: Delete this note and update the table of contents based on what sections you keep.**
 
 ## Overview
 
@@ -41,7 +39,7 @@ Users should be able to:
 - Navigate between flashcards using Previous and Next buttons
 - See which card they're currently viewing (e.g., "Card 1 of 40")
 - Track mastery progress for each card on a scale of 0 to 5
-- Reset progress on a flashcard to start learning it again
+- Reset progress on a flashcard to start learning again
 
 #### Filtering & Organization
 
@@ -65,85 +63,92 @@ Users should be able to:
 
 ### Screenshot
 
-![](./screenshot.jpg)
+![](./flashcard_app_screenshot.jpg)
 
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it.
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- [Flashcard app challenge](https://www.frontendmentor.io/challenges/flashcard-app) – Frontend Mentor
+- [Live site](https://bright-daifuku-350dd2.netlify.app/) – Netlify
 
-## My process
+## Project structure
 
-### Built with
+- **`frontend/`** – React SPA (Vite, TypeScript, React Router). Study Mode, All Cards list, forms, modals, and shared UI components.
+- **`backend/`** – Express API that proxies flashcard CRUD and count updates to Supabase. Optional when using Supabase from the frontend directly; useful for server-side auth or extra logic.
 
-- Semantic HTML5 markup
-- CSS custom properties
-- Flexbox
-- CSS Grid
-- Mobile-first workflow
-- [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
+Routes:
 
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- `/study-mode` – Study Mode (one card at a time, flip, “I Know This”, prev/next, filters, shuffle).
+- `/all-cards` – Full card list with create/edit/delete, load more, category filter.
 
-### What I learned
+## Getting started
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+### Prerequisites
 
-To see how you can add code snippets, see below:
+- Node.js (v18+)
+- npm (or yarn/pnpm)
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
+### Environment variables
 
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
+**Frontend** (`frontend/.env`):
 
-```js
-const proudOfThisFunc = () => {
-  console.log("🎉");
-};
-```
+- `VITE_SUPABASE_URL` – Supabase project URL
+- `VITE_SUPABASE_API_KEY` – Supabase anon/publishable key
+- `VITE_API_BASE_URL` – (optional) Backend API base URL; defaults to `http://localhost:3001`
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+**Backend** (`backend/.env`):
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+- `SUPABASE_URL` – Supabase project URL
+- `SUPABASE_API_KEY` – Supabase service or anon key
+- `PORT` – (optional) Server port; defaults to `3001`
 
-### Continued development
+### Run locally
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+1. Clone the repo and open the project folder.
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+2. **Frontend**
 
-### Useful resources
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
+   App runs at the URL shown by Vite (e.g. `http://localhost:5173`).
 
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+3. **Backend** (if you use the Express API for flashcards)
+
+   ```bash
+   cd backend
+   npm install
+   npm run dev
+   ```
+
+   API runs at `http://localhost:3001` (or the port set in `PORT`). Health check: `GET /health`.
+
+4. **Docker** (backend only)
+
+   From the `backend` directory:
+
+   ```bash
+   docker build -t flashcard-backend .
+   docker run -p 3001:3001 --env-file .env flashcard-backend
+   ```
+
+## Built with
+
+- [React](https://reactjs.org/) 19 – UI library
+- [Vite](https://vitejs.dev/) – Build tool and dev server
+- [TypeScript](https://www.typescriptlang.org/) – Typing
+- [React Router](https://reactrouter.com/) – Client-side routing
+- [Motion](https://motion.dev/) – Animations (e.g. flashcard flip, transitions)
+- [Supabase](https://supabase.com/) – Backend (auth, database)
+- [Express](https://expressjs.com/) – Optional Node API for flashcard and known-count endpoints
+- [Docker](https://www.docker.com/) – Containerization for the backend
+- [Netlify](https://www.netlify.com/) – Frontend hosting
+- CSS (custom properties, Flexbox, Grid, mobile-first layout)
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
-
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+- Website – [Alexandre Millet](https://alexm-portofolio.netlify.app/)
+- Frontend Mentor – [@alexM421](https://www.frontendmentor.io/profile/alexM421)
